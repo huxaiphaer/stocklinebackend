@@ -25,3 +25,6 @@ sqlparse==0.4.2
 tomli==2.0.1
 typing_extensions==4.1.1
 tzdata==2022.1
+django-shell-plus==1.1.7
+django-showurls==1.0.1
+
