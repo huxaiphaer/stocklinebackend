@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d865d9c-b89e-405b-9a4c-4ba2742bfc1b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="6d865d9c-b89e-405b-9a4c-4ba2742bfc1b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -91,7 +89,7 @@
       <workItem from="1656165913410" duration="471000" />
       <workItem from="1656166656478" duration="7611000" />
       <workItem from="1656196283308" duration="752000" />
-      <workItem from="1656197491359" duration="2748000" />
+      <workItem from="1656197491359" duration="3262000" />
     </task>
     <task id="LOCAL-00001" summary="Add README file">
       <created>1651655835984</created>
@@ -149,7 +147,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656196952568</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add allowed hosts">
+      <created>1656237105404</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1656237105404</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,6 +177,7 @@
     <MESSAGE value="git ignore" />
     <MESSAGE value="add endpoints for auth" />
     <MESSAGE value="Add collect statics config" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add collect statics config" />
+    <MESSAGE value="Add allowed hosts" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add allowed hosts" />
   </component>
 </project>
