@@ -48,6 +48,14 @@ class UserManager(django_models.BaseUserManager):
         return user
 
 
+STATUSES = [
+    ('Active', 'Active'),
+    ('Inactive', 'Inactive'),
+]
+
+INACTIVE = 'Inactive'
+
+
 class User(django_models.AbstractBaseUser, TimeStampedModel,
            django_models.PermissionsMixin):
     """
@@ -63,6 +71,8 @@ class User(django_models.AbstractBaseUser, TimeStampedModel,
     is_active = models.BooleanField(_('Is Active'), default=True)
     username = models.CharField(_('Username'), max_length=255,
                                 blank=True, null=True)
+    status = models.CharField(_('Status'), max_length=100, choices=STATUSES,
+                              default=INACTIVE,)
 
     objects = UserManager()
 

@@ -20,3 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/users/', include('users.urls')),
 ]
+
+admin.site.site_header = 'Stockline Admin'
+admin.site.site_title = 'Stockline Admin'
+admin.site.index_title = 'Stockline Admin'
