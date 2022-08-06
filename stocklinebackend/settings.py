@@ -61,6 +61,7 @@ INSTALLED_APPS = [
 
     # apps
     'users',
+    'prealert',
 
 
 ]

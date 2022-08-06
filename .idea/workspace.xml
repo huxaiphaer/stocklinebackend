@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6d865d9c-b89e-405b-9a4c-4ba2742bfc1b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stocklinebackend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/stocklinebackend/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stocklinebackend/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/stocklinebackend/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +95,13 @@
       <workItem from="1656166656478" duration="7611000" />
       <workItem from="1656196283308" duration="752000" />
       <workItem from="1656197491359" duration="2748000" />
+      <workItem from="1656273873901" duration="22000" />
+      <workItem from="1656363445164" duration="465000" />
+      <workItem from="1656945577134" duration="674000" />
+      <workItem from="1657024851576" duration="741000" />
+      <workItem from="1657875996691" duration="7345000" />
+      <workItem from="1658132604493" duration="562000" />
+      <workItem from="1659822707417" duration="610000" />
     </task>
     <task id="LOCAL-00001" summary="Add README file">
       <created>1651655835984</created>
@@ -149,7 +159,28 @@
       <option name="project" value="LOCAL" />
       <updated>1656196952568</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Collect static files.">
+      <created>1656238541557</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1656238541557</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Collect static files.">
+      <created>1656239241644</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1656239241644</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Fix cors">
+      <created>1656363592247</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1656363592247</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,6 +203,9 @@
     <MESSAGE value="git ignore" />
     <MESSAGE value="add endpoints for auth" />
     <MESSAGE value="Add collect statics config" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add collect statics config" />
+    <MESSAGE value="Collect static files" />
+    <MESSAGE value="Collect static files." />
+    <MESSAGE value="Fix cors" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix cors" />
   </component>
 </project>
