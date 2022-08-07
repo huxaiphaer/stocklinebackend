@@ -61,7 +61,7 @@ class PreAlert(TimeStampedModel, models.Model):
                                 default=HIGH, )
 
     def __str__(self):
-        return f'{self.customer_name} {self.quantity}'
+        return f'{self.customer} {self.quantity}'
 
 
 class WeighBridge(TimeStampedModel, models.Model):
@@ -152,7 +152,8 @@ class StoreEntrance(TimeStampedModel, models.Model):
                                   related_name='packaging_store_entrance',
                                   null=True, on_delete=models.SET_NULL)
 
-    # TODO: add calculated field : Theoretical Weight  = quantity x quantity quantity pledged.
+    # TODO: add calculated field : Theoretical Weight  = quantity x quantity
+    #  quantity pledged.
 
     def __str__(self):
         return f'{self.id}'
