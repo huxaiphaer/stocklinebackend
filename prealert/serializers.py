@@ -19,7 +19,7 @@ class PreAlertSerializer(serializers.ModelSerializer):
     class Meta:
         model = PreAlert
         fields = (
-            'uuid', 'customer', 'product', 'quantity', 'packaging',
+            'id', 'uuid', 'customer', 'product', 'quantity', 'packaging',
             'weight', 'user', 'priority', )
 
     def create(self, validated_data):
