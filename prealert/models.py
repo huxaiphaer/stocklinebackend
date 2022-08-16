@@ -8,8 +8,14 @@ from django_extensions.db.models import TimeStampedModel
 from customer.models import Product, Packaging, Customer
 from users.models import User
 
+TYPE_STATUSES = [
+    ('Inbound', 'Inbound'),
+    ('Outbound', 'Outbound'),
+]
+
 STATUSES = [
     ('High', 'High'),
+    ('Medium', 'Medium'),
     ('Low', 'Low'),
 ]
 
@@ -51,12 +57,25 @@ class PreAlert(TimeStampedModel, models.Model):
                                 related_name='product_pre_alert',
                                 null=True, on_delete=models.SET_NULL)
     quantity = models.FloatField(_('Quantity'), blank=True, null=True)
+    contract_number = models.CharField(_('Contract Number'),
+                                       max_length=400, blank=True,
+                                       null=True)
+    from_or_origin = CountryField()
     packaging = models.ForeignKey(Packaging,
                                   related_name='packaging_pre_alert',
                                   null=True, on_delete=models.SET_NULL)
+    commentaries = models.TextField(_('Commentaries'), null=True, blank=True)
+    type = models.CharField(_('Type'), max_length=100,
+                            choices=TYPE_STATUSES,
+                            default=DEFAULT_TRANSACTION_TYPE, )
+
     weight = models.FloatField(_('Weight'), blank=True, null=True)
+    notifications = models.BooleanField(_('Notifications'), default=False)
     user = models.ForeignKey(User, related_name='prealert', null=True,
                              on_delete=models.SET_NULL)
+    status = models.CharField(_('Status'), max_length=100,
+                              choices=WEIGH_BRIDGE_STATUS,
+                              default=WEIGH_STATUS_DEFAULT, )
     priority = models.CharField(_('Priority'), max_length=100, choices=STATUSES,
                                 default=HIGH, )
 
