@@ -61,7 +61,7 @@ class PreAlert(TimeStampedModel, models.Model):
                                 default=HIGH, )
 
     def __str__(self):
-        return f'{self.customer} {self.quantity}'
+        return f'{self.customer} {self.quantity} {self.user}'
 
 
 class WeighBridge(TimeStampedModel, models.Model):

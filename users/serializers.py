@@ -55,7 +55,7 @@ class LoginSerializer(serializers.Serializer):
 
         :data: Data for the Login data
 
-        :return: An an object of user after login.
+        :return: An object of user after login.
         """
         user = authenticate(email=data.get('email'),
                             password=data.get('password'))
@@ -85,8 +85,8 @@ class LoginSerializer(serializers.Serializer):
         pass
 
 
-class UserProfile(CountryFieldMixin, serializers.Serializer):
+class UserProfile(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email', 'username', 'uuid', )
+        fields = ('email', 'username', 'uuid', 'status', )

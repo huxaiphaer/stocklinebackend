@@ -13,6 +13,7 @@ class PreAlertView(generics.ListCreateAPIView):
     authentication_classes = (JWTAuthentication,)
 
     def post(self, request, *args, **kwargs):
+
         serializer = self.serializer_class(
             data=request.data, context={'request': request})
         if serializer.is_valid():

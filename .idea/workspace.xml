@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d865d9c-b89e-405b-9a4c-4ba2742bfc1b" name="Changes" comment="Fix cors">
-      <change afterPath="$PROJECT_DIR$/prealert/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/prealert/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customer/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/customer/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customer/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/customer/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customer/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/customer/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prealert/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prealert/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prealert/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stocklinebackend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/stocklinebackend/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stocklinebackend/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/stocklinebackend/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/serializers.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,6 +109,7 @@
       <workItem from="1659905738305" duration="732000" />
       <workItem from="1659941052612" duration="79000" />
       <workItem from="1660640082466" duration="1263000" />
+      <workItem from="1660678981108" duration="3668000" />
     </task>
     <task id="LOCAL-00001" summary="Add README file">
       <created>1651655835984</created>
