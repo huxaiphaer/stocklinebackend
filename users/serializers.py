@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate
+from django_countries.serializers import CountryFieldMixin
 from rest_framework import serializers
 
 from users.models import User
@@ -83,3 +84,9 @@ class LoginSerializer(serializers.Serializer):
     def create(self, validated_data):
         pass
 
+
+class UserProfile(CountryFieldMixin, serializers.Serializer):
+
+    class Meta:
+        model = User
+        fields = ('email', 'username', 'uuid', )

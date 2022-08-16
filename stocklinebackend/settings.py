@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     # Third parties
     'rest_framework',
     'corsheaders',
-    # 'django_showurls',
+    'django_extensions',
 
     # apps
     'users',
