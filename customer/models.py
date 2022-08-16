@@ -49,4 +49,4 @@ class Packaging(TimeStampedModel, models.Model):
                                            blank=True, null=True)
 
     def __str__(self):
-        return self.uuid
+        return self.packaging_name

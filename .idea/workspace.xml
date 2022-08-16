@@ -5,15 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d865d9c-b89e-405b-9a4c-4ba2742bfc1b" name="Changes" comment="Fix cors">
+      <change afterPath="$PROJECT_DIR$/prealert/serializers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/prealert/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customer/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/prealert/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/prealert/migrations/0002_alter_guaranteedgoods_options_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/prealert/migrations/0003_remove_prealert_customer_name_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/prealert/migrations/0004_prealert_customer_prealert_packaging_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/prealert/migrations/0005_storeentrance_product.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0002_user_status_alter_user_is_verified.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/customer/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/customer/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customer/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/customer/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prealert/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stocklinebackend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/stocklinebackend/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stocklinebackend/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/stocklinebackend/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/serializers.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
