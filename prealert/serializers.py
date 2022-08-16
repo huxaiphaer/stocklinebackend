@@ -12,39 +12,40 @@ from users.serializers import UserProfile
 
 class PreAlertSerializer(serializers.ModelSerializer):
     user = UserProfile(read_only=True)
-    customer = CustomerSerializer()
-    product = ProductSerializer()
-    packaging = PackagingSerializer()
+    customer = CustomerSerializer(many=False, required=False)
+    product = ProductSerializer(many=False, required=False)
+    packaging = PackagingSerializer(many=False, required=False)
 
     class Meta:
         model = PreAlert
         fields = (
             'uuid', 'customer', 'product', 'quantity', 'packaging',
-            'weight', 'user', 'priority')
+            'weight', 'user', 'priority', )
 
     def create(self, validated_data):
         """Save pre-alert"""
 
-        customer = validated_data.pop('customer', {})
-        product = validated_data.pop('product', {})
-        packaging = validated_data.pop('packaging', {})
+        print(" self.context['request'] ", self.context['request'].data)
 
-        print("== ", self.context['request'].user)
+        customer = self.context['request'].data.get('customer_id', None)
+        product = self.context['request'].data.get('product_id', None)
+        packaging = self.context['request'].data.get('packaging_id', None)
+
         pre_alert = PreAlert.objects.create(**validated_data,
                                             user=self.context['request'].user)
 
         if customer:
-            customer_obj = Customer.objects.get(id=customer['id'])
+            customer_obj = Customer.objects.get(id=customer)
             pre_alert.customer = customer_obj
             pre_alert.save()
 
         if product:
-            product_obj = Product.objects.get(id=product['id'])
+            product_obj = Product.objects.get(id=product)
             pre_alert.product = product_obj
             pre_alert.save()
 
         if packaging:
-            packaging_obj = Packaging.object.get(id=packaging['id'])
+            packaging_obj = Packaging.objects.get(id=packaging)
             pre_alert.packaging = packaging_obj
             pre_alert.save()
 

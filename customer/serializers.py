@@ -19,5 +19,5 @@ class ProductSerializer(serializers.ModelSerializer):
 class PackagingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Packaging
-        fields = ('uuid', 'packaging_name', 'packaging_type', 'quantity',
+        fields = ('id', 'uuid', 'packaging_name', 'packaging_type', 'quantity',
                   'packaging_capacity')
