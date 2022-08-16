@@ -45,8 +45,8 @@ class PreAlert(TimeStampedModel, models.Model):
                             editable=False,
                             db_index=True, blank=False, null=False)
     customer = models.ForeignKey(Customer,
-                                      related_name='customer_name_pre_alert',
-                                      null=True, on_delete=models.SET_NULL)
+                                 related_name='customer_name_pre_alert',
+                                 null=True, on_delete=models.SET_NULL)
     product = models.ForeignKey(Product,
                                 related_name='product_pre_alert',
                                 null=True, on_delete=models.SET_NULL)
@@ -78,8 +78,8 @@ class WeighBridge(TimeStampedModel, models.Model):
     vehicle_reg_num = models.CharField(_('Vehicle Registration Number'),
                                        max_length=400, blank=True, null=True)
     commodity = models.ForeignKey(Product,
-                                     related_name='commodity_weigh_bridge',
-                                     null=True, on_delete=models.SET_NULL)
+                                  related_name='commodity_weigh_bridge',
+                                  null=True, on_delete=models.SET_NULL)
     trailer_reg_num = models.CharField(_('Trailer Registration Number'),
                                        max_length=400, blank=True, null=True)
     user = models.ForeignKey(User, related_name='weighbridge', null=True,
