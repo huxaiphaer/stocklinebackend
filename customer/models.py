@@ -16,7 +16,7 @@ class Customer(TimeStampedModel, models.Model):
 
     def __str__(self):
         """Return customer name."""
-        return self.customer_name
+        return f'{self.customer_name}'
 
 
 class Product(TimeStampedModel, models.Model):
@@ -30,7 +30,7 @@ class Product(TimeStampedModel, models.Model):
                                     blank=True, null=True)
 
     def __str__(self):
-        return self.product_name
+        return f'{self.product_name}'
 
 
 class Packaging(TimeStampedModel, models.Model):
@@ -39,14 +39,13 @@ class Packaging(TimeStampedModel, models.Model):
                             default=uuid.uuid4,
                             editable=False,
                             db_index=True, blank=False, null=False)
-    packaging_name = models.CharField(_('Packaging Name'), max_length=400,
-                                      blank=True, null=True)
+    packaging_name = models.ForeignKey(Product,
+                                       related_name='packaging_name_package',
+                                       null=True, on_delete=models.SET_NULL)
     packaging_type = models.CharField(_('Packaging Type'), max_length=400,
                                       blank=True, null=True)
     quantity = models.FloatField(_('Quantity'),
                                  blank=True, null=True)
-    packaging_capacity = models.FloatField(_('Packaging Capacity'),
-                                           blank=True, null=True)
 
     def __str__(self):
-        return self.packaging_name
+        return f'{self.packaging_name}'

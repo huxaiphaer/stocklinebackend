@@ -5,7 +5,11 @@ from prealert.models import PreAlert, WeighBridge, GuaranteedGoods, \
 
 
 class PreAlertAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('id', 'customer', 'product',
+                    'quantity', 'contract_number', 'from_or_origin',
+                    'packaging', 'commentaries', 'type', 'weight',
+                    'notifications', 'user', 'status', 'priority')
+    search_fields = ('customer', 'contract_number',)
 
 
 class WeighBridgeAdmin(admin.ModelAdmin):
