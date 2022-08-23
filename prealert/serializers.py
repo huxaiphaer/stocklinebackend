@@ -7,10 +7,11 @@ from customer.serializers import (
     PackagingSerializer
 )
 from prealert.models import PreAlert
+from django_countries.serializers import CountryFieldMixin
 from users.serializers import UserProfile
 
 
-class PreAlertSerializer(serializers.ModelSerializer):
+class PreAlertSerializer(CountryFieldMixin, serializers.ModelSerializer):
     user = UserProfile(read_only=True)
     customer = CustomerSerializer(many=False, required=False)
     product = ProductSerializer(many=False, required=False)
@@ -19,13 +20,13 @@ class PreAlertSerializer(serializers.ModelSerializer):
     class Meta:
         model = PreAlert
         fields = (
-            'id', 'uuid', 'customer', 'product', 'quantity', 'packaging',
+            'id', 'uuid', 'customer', 'product', 'contract_number', 'quantity',
+            'packaging',
+            'from_or_origin', 'commentaries', 'type', 'notifications', 'status',
             'weight', 'user', 'priority', )
 
     def create(self, validated_data):
         """Save pre-alert"""
-
-        print(" self.context['request'] ", self.context['request'].data)
 
         customer = self.context['request'].data.get('customer_id', None)
         product = self.context['request'].data.get('product_id', None)
