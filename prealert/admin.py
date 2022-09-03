@@ -13,15 +13,28 @@ class PreAlertAdmin(admin.ModelAdmin):
 
 
 class WeighBridgeAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        'id', 'vehicle_number', 'transporter',
+        'vehicle_reg_num', 'commodity', 'trailer_reg_num', 'user', 'entry_date',
+        'exit_time', 'print_date', 'status',
+    )
+    search_fields = ('vehicle_number', 'transporter',)
 
 
 class GuaranteedGoodsAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        'uuid', 'batch_number', 'quantity',
+        'quantity_pledged', 'theoretical_weight', 'theoretical_weight_pledged',
+        'actual_weight', 'actual_weight_guaranteed',
+        'priority',)
+    search_fields = ('batch_number', 'quantity',)
 
 
 class StoreEntranceAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('transaction_type', 'product', 'country', 'client_name',
+                    'flux', 'store', 'po_number', 'shipment_number',
+                    'quantity', 'user', 'packaging')
+    search_fields = ('transaction_type', 'product',)
 
 
 admin.site.register(PreAlert, PreAlertAdmin)
