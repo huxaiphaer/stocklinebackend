@@ -79,6 +79,9 @@ class PreAlert(TimeStampedModel, models.Model):
     priority = models.CharField(_('Priority'), max_length=100, choices=STATUSES,
                                 default=HIGH, )
 
+    class Meta:
+        ordering = ['-created']
+
     def __str__(self):
         return f'{self.customer} {self.quantity} {self.user}'
 

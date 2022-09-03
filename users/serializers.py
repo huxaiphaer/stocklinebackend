@@ -18,6 +18,15 @@ class TokenObtainPairResponseSerializer(serializers.Serializer):
         raise NotImplementedError()
 
 
+class UserRenderSerializer(serializers.ModelSerializer):
+
+    """Serializer """
+
+    class Meta:
+        model = User
+        fields = ('email', 'username', 'uuid',)
+
+
 class RegistrationSerializer(serializers.ModelSerializer):
     """
     Serializer to register a user.
