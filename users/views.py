@@ -4,7 +4,9 @@ from rest_framework.views import APIView
 from rest_framework import response, status
 
 from users import custom_classes
-from users.serializers import RegistrationSerializer, LoginSerializer
+from users.models import User
+from users.serializers import RegistrationSerializer, LoginSerializer, \
+    UserRenderSerializer
 
 
 class RegisterAPIView(APIView):
@@ -40,3 +42,10 @@ class LoginAPIView(generics.GenericAPIView):
                                            context={'request': request})
         serializer.is_valid(raise_exception=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class UsersView(generics.ListAPIView):
+
+    """List Users."""
+    queryset = User.objects.all()
+    serializer_class = UserRenderSerializer
