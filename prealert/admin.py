@@ -39,5 +39,5 @@ class StoreEntranceAdmin(admin.ModelAdmin):
 
 admin.site.register(PreAlert, PreAlertAdmin)
 admin.site.register(WeighBridge, WeighBridgeAdmin)
-admin.site.register(GuaranteedGoods, WeighBridgeAdmin)
+admin.site.register(GuaranteedGoods, GuaranteedGoodsAdmin)
 admin.site.register(StoreEntrance, StoreEntranceAdmin)
