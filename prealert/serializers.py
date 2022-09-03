@@ -8,6 +8,7 @@ from customer.serializers import (
     PackagingSerializer
 )
 from prealert.models import PreAlert
+from users.models import User
 from users.serializers import UserProfile
 
 
@@ -32,9 +33,12 @@ class PreAlertSerializer(CountryFieldMixin, serializers.ModelSerializer):
         customer = self.context['request'].data.get('customer_id', None)
         product = self.context['request'].data.get('product_id', None)
         packaging = self.context['request'].data.get('packaging_id', None)
+        user_uuid = self.context['request'].data.get('user_uuid', None)
+
+        user = User.objects.get(uuid=user_uuid)
 
         pre_alert = PreAlert.objects.create(**validated_data,
-                                            user=self.context['request'].user)
+                                            user=user)
 
         if customer:
             customer_obj = Customer.objects.get(id=customer)
