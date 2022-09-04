@@ -28,8 +28,6 @@ class PreAlertSerializer(CountryFieldMixin, serializers.ModelSerializer):
     def create(self, validated_data):
         """Save pre-alert"""
 
-        print(" self.context['request'] ", self.context['request'].data)
-
         customer = self.context['request'].data.get('customer_id', None)
         product = self.context['request'].data.get('product_id', None)
         packaging = self.context['request'].data.get('packaging_id', None)

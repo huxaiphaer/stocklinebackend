@@ -41,5 +41,5 @@ class PackagingDetail(generics.ListAPIView):
 
             return response.Response(serializer.data, status=status.HTTP_200_OK)
         except Product.DoesNotExist:
-            return response.Response({"message": "No packaging's available"},
-                                     status=status.HTTP_404_NOT_FOUND)
+            return response.Response([],
+                                     status=status.HTTP_200_OK)
