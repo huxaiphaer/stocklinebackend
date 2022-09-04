@@ -60,6 +60,18 @@ class PreAlertDetail(generics.GenericAPIView):
             {'message': _('Pre Alert has been deleted')},
             status=status.HTTP_200_OK)
 
-
-
-
+    def put(self, request, *args, **kwargs):
+        pre_alert = self.get_pre_alert_by_id(kwargs.get("id"))
+        if pre_alert:
+            pre_alert.quantity = request.data.get("quantity")
+            pre_alert.contract_number = request.data.get("contract_number")
+            pre_alert.from_or_origin = request.data.get("from_or_origin")
+            pre_alert.commentaries = request.data.get("commentaries")
+            pre_alert.type = request.data.get("type")
+            pre_alert.weight = request.data.get("weight")
+            pre_alert.notifications = request.data.get("notifications")
+            pre_alert.status = request.data.get("status")
+            pre_alert.priority = request.data.get("priority")
+            return response.Response(
+                {'message': _('Pre Alert has been edited.')},
+                status=status.HTTP_200_OK)

@@ -17,6 +17,9 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class PackagingSerializer(serializers.ModelSerializer):
+
+    packaging_name = ProductSerializer(many=False, required=False)
+
     class Meta:
         model = Packaging
         fields = ('id', 'uuid', 'packaging_name', 'packaging_type', 'quantity',)
