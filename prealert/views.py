@@ -72,6 +72,7 @@ class PreAlertDetail(generics.GenericAPIView):
             pre_alert.notifications = request.data.get("notifications")
             pre_alert.status = request.data.get("status")
             pre_alert.priority = request.data.get("priority")
+            pre_alert.save()
             return response.Response(
                 {'message': _('Pre Alert has been edited.')},
                 status=status.HTTP_200_OK)
