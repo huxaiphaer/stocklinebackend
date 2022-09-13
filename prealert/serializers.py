@@ -57,7 +57,6 @@ class PreAlertSerializer(CountryFieldMixin, serializers.ModelSerializer):
 
 
 class WeighBridgeSerializer(serializers.ModelSerializer):
-    customer = CustomerSerializer(many=False, required=False)
     commodity = ProductSerializer(many=False, required=False)
 
     class Meta:
