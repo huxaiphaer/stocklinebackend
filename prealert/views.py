@@ -2,8 +2,8 @@ from rest_framework import generics, response, status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.utils.translation import gettext_lazy as _
 
-from prealert.models import PreAlert
-from prealert.serializers import PreAlertSerializer
+from prealert.models import PreAlert, WeighBridge
+from prealert.serializers import PreAlertSerializer, WeighBridgeSerializer
 
 
 class PreAlertView(generics.ListCreateAPIView):
@@ -76,3 +76,13 @@ class PreAlertDetail(generics.GenericAPIView):
             return response.Response(
                 {'message': _('Pre Alert has been edited.')},
                 status=status.HTTP_200_OK)
+
+
+class WeighBridgeView(generics.ListCreateAPIView):
+    queryset = WeighBridge.objects.all()
+    serializer_class = WeighBridgeSerializer
+
+
+class WeighBridgeDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = WeighBridge.objects.all()
+    serializer_class = WeighBridgeSerializer

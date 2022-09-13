@@ -99,9 +99,12 @@ class WeighBridge(TimeStampedModel, models.Model):
                                    blank=True, null=True)
     vehicle_reg_num = models.CharField(_('Vehicle Registration Number'),
                                        max_length=400, blank=True, null=True)
+    account_id = models.CharField(
+        _('Account ID'), max_length=400, blank=True, null=True)
     commodity = models.ForeignKey(Product,
                                   related_name='commodity_weigh_bridge',
                                   null=True, on_delete=models.SET_NULL)
+    time = models.TimeField(_('Exit Time'), blank=True, null=True)
     trailer_reg_num = models.CharField(_('Trailer Registration Number'),
                                        max_length=400, blank=True, null=True)
     user = models.ForeignKey(User, related_name='weighbridge', null=True,
@@ -109,6 +112,22 @@ class WeighBridge(TimeStampedModel, models.Model):
     entry_date = models.DateField(_('Entry Date'), blank=True, null=True)
     exit_time = models.TimeField(_('Exit Time'), blank=True, null=True)
     print_date = models.DateField(_('Print Date'), blank=True, null=True)
+    _import = models.CharField(
+        _('Import'), max_length=400, blank=True, null=True)
+    _export = models.CharField(
+        _('Export'), max_length=400, blank=True, null=True)
+    client_name = models.CharField(
+        _('Client Name'), max_length=400, blank=True, null=True)
+    from_destination = models.CharField(
+        _('From'), max_length=400, blank=True, null=True)
+    to_destination = models.CharField(
+        _('To'), max_length=400, blank=True, null=True)
+    first_weight = models.FloatField(
+        _('First Weight'), max_length=400, blank=True, null=True)
+    second_name = models.CharField(
+        _('Second Name'), max_length=400, blank=True, null=True)
+    net_weight = models.FloatField(
+        _('Net Weight'), max_length=400, blank=True, null=True)
     status = models.CharField(_('Status'), max_length=100,
                               choices=WEIGH_BRIDGE_STATUS,
                               default=WEIGH_STATUS_DEFAULT, )
