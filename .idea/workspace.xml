@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d865d9c-b89e-405b-9a4c-4ba2742bfc1b" name="Changes" comment="Fix cors">
-      <change beforePath="$PROJECT_DIR$/prealert/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prealert/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/serializers.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -62,7 +62,7 @@ class WeighBridgeSerializer(serializers.ModelSerializer):
     class Meta:
         model = WeighBridge
         fields = (
-            'id', 'vehicle_number', 'transporter',
+            'id', 'vehicle_number', 'transporter', 'vehicle_reg_num',
             'account_id', 'commodity', 'time', 'trailer_reg_num',
             'user', 'entry_date', 'exit_time', 'print_date', '_import',
             '_export', 'client_name', 'from_destination', 'to_destination',
