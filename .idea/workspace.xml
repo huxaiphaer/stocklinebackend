@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6d865d9c-b89e-405b-9a4c-4ba2742bfc1b" name="Changes" comment="Fix cors">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prealert/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prealert/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prealert/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prealert/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -108,6 +111,7 @@
       <workItem from="1662064862452" duration="1327000" />
       <workItem from="1662196332045" duration="1817000" />
       <workItem from="1662283705499" duration="1577000" />
+      <workItem from="1663089822542" duration="886000" />
     </task>
     <task id="LOCAL-00001" summary="Add README file">
       <created>1651655835984</created>
@@ -213,5 +217,16 @@
     <MESSAGE value="Collect static files." />
     <MESSAGE value="Fix cors" />
     <option name="LAST_COMMIT_MESSAGE" value="Fix cors" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/prealert/serializers.py</url>
+          <line>32</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

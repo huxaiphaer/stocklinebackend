@@ -7,7 +7,7 @@ from customer.serializers import (
     ProductSerializer,
     PackagingSerializer
 )
-from prealert.models import PreAlert
+from prealert.models import PreAlert, WeighBridge
 from users.models import User
 from users.serializers import UserProfile
 
@@ -54,3 +54,17 @@ class PreAlertSerializer(CountryFieldMixin, serializers.ModelSerializer):
             pre_alert.save()
 
         return pre_alert
+
+
+class WeighBridgeSerializer(serializers.ModelSerializer):
+    customer = CustomerSerializer(many=False, required=False)
+    commodity = ProductSerializer(many=False, required=False)
+
+    class Meta:
+        model = WeighBridge
+        fields = (
+            'vehicle_number', 'transporter',
+            'account_id', 'commodity', 'time', 'trailer_reg_num',
+            'user', 'entry_date', 'exit_time', 'print_date', '_import',
+            '_export', 'client_name', 'from_destination', 'to_destination',
+            'first_weight', 'second_name', 'net_weight', 'status',)
