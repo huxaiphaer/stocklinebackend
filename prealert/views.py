@@ -3,8 +3,9 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.utils.translation import gettext_lazy as _
 
 from customer.models import Product, Customer
-from prealert.models import PreAlert, WeighBridge
-from prealert.serializers import PreAlertSerializer, WeighBridgeSerializer
+from prealert.models import PreAlert, WeighBridge, GuaranteedGoods
+from prealert.serializers import PreAlertSerializer, WeighBridgeSerializer, \
+    GuaranteedGoodsSerializer
 from users.models import User
 
 
@@ -153,3 +154,62 @@ class WeighBridgeDetailView(generics.RetrieveUpdateDestroyAPIView):
             return response.Response(
                 {'message': _('Weigh bridge has been edited.')},
                 status=status.HTTP_200_OK)
+
+
+class GuaranteedGoodsView(generics.ListCreateAPIView):
+    queryset = GuaranteedGoods.objects.all()
+    serializer_class = GuaranteedGoodsSerializer
+
+
+class GuaranteedGoodsDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = GuaranteedGoods.objects.all()
+    serializer_class = GuaranteedGoodsSerializer
+
+    def get_guarantee_goods_by_id(self, _id: int):
+        """Get Weigh Bridge by id. """
+        try:
+            obj = GuaranteedGoods.objects.get(id=_id)
+            return obj
+        except GuaranteedGoods.DoesNotExist:
+            return None
+
+    def get(self, request, *args, **kwargs):
+        guaranteed_goods = self.get_guarantee_goods_by_id(kwargs.get("id"))
+        if not guaranteed_goods:
+            return response.Response({
+                'errors': _('Sorry, Guaranteed with the specified id does'
+                            'not exist')
+            }, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = self.serializer_class(guaranteed_goods,
+                                           context={'request': request})
+        return response.Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, *args, **kwargs):
+        guaranteed_goods = self.get_guarantee_goods_by_id(kwargs.get("id"))
+        if guaranteed_goods:
+            guaranteed_goods.delete()
+        return response.Response(
+            {'message': _('Guaranteed goods has been deleted.')},
+            status=status.HTTP_200_OK)
+
+    def put(self, request, *args, **kwargs):
+        guaranteed_goods = self.get_guarantee_goods_by_id(kwargs.get("id"))
+
+        if guaranteed_goods:
+            guaranteed_goods.batch_number = request.data.get("batch_number")
+            guaranteed_goods.quantity = request.data.get("quantity")
+            guaranteed_goods.quantity_pledged = request.data.get("quantity_pledged")
+            guaranteed_goods.theoretical_weight = request.data.get("theoretical_weight")
+            guaranteed_goods.theoretical_weight_pledged = request.data.get("theoretical_weight_pledged")
+            guaranteed_goods.actual_weight = request.data.get("actual_weight")
+            guaranteed_goods.actual_weight_guaranteed = request.data.get("actual_weight_guaranteed")
+            guaranteed_goods.priority = request.data.get("priority")
+
+            guaranteed_goods.save()
+            return response.Response(
+                {'message': _('Guaranteed goods have been edited.')},
+                status=status.HTTP_200_OK)
+
+
+

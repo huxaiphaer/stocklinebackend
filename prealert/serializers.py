@@ -7,7 +7,7 @@ from customer.serializers import (
     ProductSerializer,
     PackagingSerializer
 )
-from prealert.models import PreAlert, WeighBridge
+from prealert.models import PreAlert, WeighBridge, GuaranteedGoods
 from users.models import User
 from users.serializers import UserProfile
 
@@ -67,3 +67,13 @@ class WeighBridgeSerializer(serializers.ModelSerializer):
             'user', 'entry_date', 'exit_time', 'print_date', '_import',
             '_export', 'client_name', 'from_destination', 'to_destination',
             'first_weight', 'second_name', 'net_weight', 'status',)
+
+
+class GuaranteedGoodsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GuaranteedGoods
+        fields = (
+            'id', 'batch_number', 'quantity', 'quantity_pledged',
+            'theoretical_weight', 'theoretical_weight_pledged',
+            'actual_weight', 'actual_weight_guaranteed', 'priority', )
