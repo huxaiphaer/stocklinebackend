@@ -198,3 +198,7 @@ class StoreEntrance(TimeStampedModel, models.Model):
 
     def __str__(self):
         return f'{self.id}'
+
+
+class Warranty(TimeStampedModel, models.Model):
+    """Add warranty"""
