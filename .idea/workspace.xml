@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d865d9c-b89e-405b-9a4c-4ba2742bfc1b" name="Changes" comment="Fix cors">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prealert/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prealert/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prealert/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prealert/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="6d865d9c-b89e-405b-9a4c-4ba2742bfc1b" name="Changes" comment="Fix cors" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -115,6 +109,7 @@
       <workItem from="1663138092268" duration="164000" />
       <workItem from="1663160000320" duration="209000" />
       <workItem from="1663164757672" duration="1765000" />
+      <workItem from="1663861818425" duration="318000" />
     </task>
     <task id="LOCAL-00001" summary="Add README file">
       <created>1651655835984</created>

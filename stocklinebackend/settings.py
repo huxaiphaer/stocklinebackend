@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
+import environ
 from datetime import timedelta
 from pathlib import Path
 
@@ -18,12 +19,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
+FRONTEND_DIR = 'stockline_frontend'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, FRONTEND_DIR, 'build'),
+    os.path.join(BASE_DIR, FRONTEND_DIR, 'build', 'static')
 )
 
 
@@ -85,7 +91,9 @@ ROOT_URLCONF = 'stocklinebackend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR / 'templates',
+                 os.path.join(BASE_DIR, FRONTEND_DIR, 'build'),
+                 os.path.join(BASE_DIR, FRONTEND_DIR, 'build', 'static')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -177,3 +185,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
