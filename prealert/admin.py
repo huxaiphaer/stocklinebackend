@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from prealert.models import PreAlert, WeighBridge, GuaranteedGoods, \
-    StoreEntrance
+    StoreEntrance, CarrierStoreEntrance, ProductStoreEntrance
 
 
 class PreAlertAdmin(admin.ModelAdmin):
@@ -30,14 +30,42 @@ class GuaranteedGoodsAdmin(admin.ModelAdmin):
     search_fields = ('batch_number', 'quantity',)
 
 
+class CarrierStoreEntranceAdmin(admin.StackedInline):
+    model = CarrierStoreEntrance
+    list_display = ('id', 'carrier_identifier', 'container_number',
+                    'registration_number',
+                    'carrier_type', 'entry_slip_number',
+                    'licence_number', 'trailer_number', 'supervisor_name',
+                    'product_entry_date', 'guardian_name', 'comments', ''
+                    )
+    search_fields = ('carrier_identifier', 'container_number',)
+
+
+class ProductStoreEntranceAdmin(admin.StackedInline):
+    model = ProductStoreEntrance
+    list_display = ('purchase_order_number',
+                    'shipment_number',
+                    'batch_number',
+                    'compliance',
+                    'amount', 'grade', 'mark', 'theoretical_weight',
+                    'packaging', 'theoretical_weight', 'actual_weight',
+                    'zone_warehouse',
+                    'product_comments')
+
+
 class StoreEntranceAdmin(admin.ModelAdmin):
     list_display = ('transaction_type', 'product', 'country', 'client_name',
                     'flux', 'store', 'po_number', 'shipment_number',
                     'quantity', 'user', 'packaging')
     search_fields = ('transaction_type', 'product',)
+    inlines = [
+        CarrierStoreEntranceAdmin,
+        ProductStoreEntranceAdmin
+    ]
 
 
 admin.site.register(PreAlert, PreAlertAdmin)
 admin.site.register(WeighBridge, WeighBridgeAdmin)
 admin.site.register(GuaranteedGoods, GuaranteedGoodsAdmin)
 admin.site.register(StoreEntrance, StoreEntranceAdmin)
+admin.site.register(CarrierStoreEntrance)

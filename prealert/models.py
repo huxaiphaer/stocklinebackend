@@ -1,4 +1,6 @@
 import uuid as uuid
+
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
@@ -7,6 +9,7 @@ from django_extensions.db.models import TimeStampedModel
 
 from customer.models import Product, Packaging, Customer
 from users.models import User
+
 
 TYPE_STATUSES = [
     ('Inbound', 'Inbound'),
@@ -167,7 +170,9 @@ class GuaranteedGoods(TimeStampedModel, models.Model):
 
 
 class StoreEntrance(TimeStampedModel, models.Model):
+
     """Store Entrance"""
+
     transaction_type = models.CharField(_('Transaction Type'),
                                         max_length=100,
                                         choices=TRANSACTION_TYPES,
@@ -180,15 +185,26 @@ class StoreEntrance(TimeStampedModel, models.Model):
     flux = models.CharField(_('Flux'), max_length=100,
                             choices=STORE_ENTRANCE_STATUS,
                             default=WEIGH_STATUS_DEFAULT)
+    type_of_management = models.CharField(
+        _('Type of Management'), max_length=400, blank=True, null=True)
     store = models.CharField(
         _('Store'), max_length=400, blank=True, null=True)
+    country_of_origin = CountryField()
     po_number = models.CharField(
         _('PO NUmber'), max_length=400, blank=True, null=True)
     shipment_number = models.CharField(
         _('Ship Number'), max_length=400, blank=True, null=True)
+    number_of_batch = models.IntegerField(
+        _('Number of batch'), blank=True, null=True)
+    entry_date = models.DateField(
+        _('Entry Date'), blank=True, null=True)
     quantity = models.FloatField(_('Quantity'), blank=True, null=True)
     user = models.ForeignKey(User, related_name='store_entrance', null=True,
                              on_delete=models.SET_NULL)
+    client_reference = models.CharField(
+        _('Client Reference'), max_length=400, blank=True, null=True)
+    contract_number = models.CharField(
+        _('Contract Number'), max_length=400, blank=True, null=True)
     packaging = models.ForeignKey(Packaging,
                                   related_name='packaging_store_entrance',
                                   null=True, on_delete=models.SET_NULL)
@@ -200,5 +216,74 @@ class StoreEntrance(TimeStampedModel, models.Model):
         return f'{self.id}'
 
 
-class Warranty(TimeStampedModel, models.Model):
-    """Add warranty"""
+class CarrierStoreEntrance(TimeStampedModel, models.Model):
+
+    """Store entrance carrier."""
+
+    carrier_identifier = models.CharField(
+        _('Carrier Identifier'), max_length=400, blank=True, null=True)
+    container_number = models.CharField(
+        _('Container Number'), max_length=400, blank=True, null=True)
+    registration_number = models.CharField(
+        _('Registration Number'), max_length=400, blank=True, null=True)
+    carrier_type = models.CharField(
+        _('Carrier Type'), max_length=400, blank=True, null=True)
+    entry_slip_number = models.CharField(
+        _('Entry slip Number'), max_length=400, blank=True, null=True)
+    licence_number = models.CharField(
+        _('Licence Number'), max_length=400, blank=True, null=True)
+    trailer_number = models.CharField(
+        _('Trailer Number'), max_length=400, blank=True, null=True)
+    supervisor_name = models.CharField(
+        _('Supervisor Name'), max_length=400, blank=True, null=True)
+    product_entry_date = models.DateField(
+        _('Product Entry Date'), blank=True, null=True)
+    guardian_name = models.CharField(
+        _('Guardian Name'), max_length=400, blank=True, null=True)
+    comments = models.TextField(
+        _('Comments'), max_length=400, blank=True, null=True)
+    store_entrance = models.ForeignKey(
+        StoreEntrance,
+        related_name='store_entrance_carrier',
+        null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return f'{self.id}'
+
+
+class ProductStoreEntrance(TimeStampedModel, models.Model):
+
+    """Product Store Entrance"""
+
+    purchase_order_number = models.CharField(
+        _('Purchase order number'), max_length=400, blank=True, null=True)
+    shipment_number = models.CharField(
+        _('Shipment  number'), max_length=400, blank=True, null=True)
+    batch_number = models.CharField(
+        _('Batch  number'), max_length=400, blank=True, null=True)
+    compliance = models.CharField(
+        _('Compliance'), max_length=400, blank=True, null=True)
+    amount = models.FloatField(
+        _('Amount'), max_length=400, blank=True, null=True)
+    grade = models.CharField(
+        _('Grade'), max_length=400, blank=True, null=True)
+    mark = models.CharField(
+        _('Mark'), max_length=400, blank=True, null=True)
+    packaging = models.ForeignKey(
+        Packaging, related_name='packaging_store_entrance_product',
+        null=True, on_delete=models.SET_NULL)
+    theoretical_weight = models.IntegerField(
+        _('Theoretical Weight'), blank=True, null=True)
+    actual_weight = models.IntegerField(
+        _('Actual Weight'), blank=True, null=True)
+    zone_warehouse = models.FloatField(
+        _('Zone warehouse'), max_length=400, blank=True, null=True)
+    product_comments = models.CharField(
+        _('Product Comments'), max_length=400, blank=True, null=True)
+    store_entrance = models.ForeignKey(
+        StoreEntrance,
+        related_name='store_entrance_entrance',
+        null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return f'{self.id}'
