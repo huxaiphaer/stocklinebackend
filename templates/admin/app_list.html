@@ -1,0 +1,73 @@
+{% load i18n %}
+<div class="position-sticky">
+{% if app_list %}
+<div class="px-0">
+<div>
+  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
+      <a 
+        {% if '/admin/' in request.path %} 
+          class="active-link"
+        {% endif %}
+        href="{% url 'admin:index' %}"
+        {% if '/admin/' in request.path|urlencode %} 
+          aria-current="page"
+        {% endif %} 
+        class="py-2" 
+        aria-current="true"
+      >
+      <i class="fas fa-home fa-fw me-3"></i><span>{% translate 'Home' %}</span>
+    </a>
+  </li>
+  {% for app in app_list %}
+            {% for model in app.models %}          
+            <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
+                {% if model.admin_url %}
+                  <a 
+                    {% if model.admin_url in request.path %} 
+                      class="active-link"
+                    {% endif %}
+                    href="{{ model.admin_url }}"
+                    {% if model.admin_url in request.path|urlencode %} 
+                      aria-current="page"
+                    {% endif %} 
+                    class="py-2" 
+                    aria-current="true"
+                  >
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>{{ model.name }}</span>
+                </a>
+                {% else %}
+                  <div scope="row">{{ model.name }}</div>
+                {% endif %}
+            </li>
+            {% endfor %} 
+        
+  {% endfor %}
+
+</div>
+</div>
+<style>
+  :root{
+  
+  }
+  li {
+    border: none !important;
+    background-color: initial;
+  }
+  .sidebar-list-item > a:link, a:visited {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    color: white !important;
+    font-size: 16px !important;
+    margin-bottom: -1px;
+  }
+  .sidebar-list-item > a:hover, a.active-link, a:active {
+    text-decoration: none;
+    border-left: 4px solid white;
+    background-color: rgb(33, 140, 83) !important;
+  }
+
+</style>
+{% else %}
+  <p>{% translate 'You don’t have permission to view or edit anything.' %}</p>
+{% endif %}

@@ -1,0 +1,116 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static "admin/css/login.css" %}">
+{{ form.media }}
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block usertools %}{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<hr></hr>
+{% if form.errors and not form.non_field_errors %}
+<p class="errornote">
+{% if form.errors.items|length == 1 %}{% translate "Please correct the error below." %}{% else %}{% translate "Please correct the errors below." %}{% endif %}
+</p>
+{% endif %}
+
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<p class="errornote">
+    {{ error }}
+</p>
+{% endfor %}
+{% endif %}
+
+<div>
+{% if user.is_authenticated %}
+<p class="errornote">
+{% blocktranslate trimmed %}
+    You are authenticated as {{ username }}, but are not authorized to
+    access this page. Would you like to login to a different account?
+{% endblocktranslate %}
+</p>
+{% endif %}
+
+<form action="{{ app_path }}" method="post" class="mt-5">{% csrf_token %}  
+  
+  <div class="center class mb-5">
+    <img src="{% static 'images/logo.png' %}" alt="Stockline Logo" class="mx-auto">
+  </div>
+  <div class="form-group">
+    {{ form.username.errors }}
+    {{ form.username }}
+  </div>
+  <div class="form-group">
+    {{ form.password.errors }}
+     {{ form.password }}
+    <input type="hidden" name="next" value="{{ next }}">
+  </div>
+  {% url 'admin_password_reset' as password_reset_url %}
+  {% if password_reset_url %}
+  <div class="password-reset-link">
+    <a href="{{ password_reset_url }}">{% translate 'Forgotten your password or username?' %}</a>
+  </div>
+  {% endif %}
+  <input type="submit" class="btn btn-success btn-block submit" value="{% translate 'Log in' %}">
+</form>
+<style>
+
+  body{
+    background-color:rgb(33, 150, 83) !important;
+    
+}  
+  .submit{
+    background-color:rgb(33, 150, 83) !important;
+  }
+  .login #container{
+    border-radius: 1.4em !important;  
+    background-color: rgb(255, 255, 255); 
+  }
+  .login #container{
+    border-radius:em !important;  
+    background-color: rgb(255, 255, 255); 
+  }
+  .content{
+    background-color: rgb(255, 255, 255) !important; 
+  }
+  #header{
+    background-color: rgb(255, 255, 255) !important; 
+    color: black;
+  }
+  .center {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .input-form{
+    background-color: #E8F0FE !important;
+    height: 3em;
+    border: 0px #E8F0FE !important;
+  }
+  .container: {
+    width: 700px !important;
+  }
+</style>
+<script>
+  let x = Array.from(document.getElementsByTagName('input'));
+  x.forEach((element)=>element.classList.add("form-control"))
+  x.forEach(function(element){
+    if(element.type === 'submit') return
+    element.classList.add("input-form")
+  })
+  document.querySelector("[name='username']").placeholder = "Username";
+  document.querySelector("[name='password']").placeholder = "Password";
+</script>
+
+</div>
+{% endblock %}
