@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d865d9c-b89e-405b-9a4c-4ba2742bfc1b" name="Changes" comment="Fix cors">
+      <change afterPath="$PROJECT_DIR$/runtime.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prealert/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prealert/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/prealert/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/cancel.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/cancel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/popup_response.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/popup_response.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stocklinebackend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/stocklinebackend/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +116,8 @@
       <workItem from="1663878668551" duration="1940000" />
       <workItem from="1663918319603" duration="603000" />
       <workItem from="1663939481680" duration="332000" />
-      <workItem from="1663953109143" duration="4873000" />
+      <workItem from="1663953109143" duration="5156000" />
+      <workItem from="1664004969909" duration="364000" />
     </task>
     <task id="LOCAL-00001" summary="Add README file">
       <created>1651655835984</created>
