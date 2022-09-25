@@ -4,15 +4,15 @@ from customer.models import Customer, Product, Packaging
 
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('uuid', 'customer_name',)
+    list_display = ('id', 'customer_name',)
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('uuid', 'product_name',)
+    list_display = ('id', 'product_name',)
 
 
 class PackagingAdmin(admin.ModelAdmin):
-    list_display = ('uuid', 'packaging_name',
+    list_display = ('id', 'packaging_name',
                     'packaging_type', 'quantity')
 
 
