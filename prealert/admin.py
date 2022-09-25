@@ -23,7 +23,7 @@ class WeighBridgeAdmin(admin.ModelAdmin):
 
 class GuaranteedGoodsAdmin(admin.ModelAdmin):
     list_display = (
-        'uuid', 'batch_number', 'quantity',
+        'id', 'batch_number', 'quantity',
         'quantity_pledged', 'theoretical_weight', 'theoretical_weight_pledged',
         'actual_weight', 'actual_weight_guaranteed',
         'priority',)
@@ -43,7 +43,7 @@ class CarrierStoreEntranceAdmin(admin.StackedInline):
 
 class ProductStoreEntranceAdmin(admin.StackedInline):
     model = ProductStoreEntrance
-    list_display = ('purchase_order_number',
+    list_display = ('id', 'purchase_order_number',
                     'shipment_number',
                     'batch_number',
                     'compliance',
@@ -54,7 +54,7 @@ class ProductStoreEntranceAdmin(admin.StackedInline):
 
 
 class StoreEntranceAdmin(admin.ModelAdmin):
-    list_display = ('transaction_type', 'product', 'country', 'client_name',
+    list_display = ('id','transaction_type', 'product', 'country', 'client_name',
                     'flux', 'store', 'po_number', 'shipment_number',
                     'quantity', 'user', 'packaging')
     search_fields = ('transaction_type', 'product',)
