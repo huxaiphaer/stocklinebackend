@@ -1,0 +1,68 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" href="{% static "admin/css/dashboard.css" %}">
+{% endblock %}
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<style>
+    #card {
+        width: 350px !important;
+        padding: 19px !important;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2) !important;
+        transition: 0.3s;
+        border-radius: 1.4em !important;
+        background-color: ghostwhite !important;
+
+    }
+    #recent-header {
+        font-size: 25px;
+        font-weight: 400;
+        text-align: center;
+    }
+    .addlink{
+        color:green !important;
+    }
+    .deletelink{
+        color:red !important;
+    }
+    .changelink{
+        color:blue !important;
+    }
+</style>
+    <div >
+        <div  id="card" >
+            <h2 id="recent-header">{% translate 'Recent actions' %}</h2>
+                <h3 style="font-size: 15px; font-weight: 400;">{% translate 'My actions' %}</h3>
+                    {% load log %}
+                        <div div class="card-body">
+                            {% get_admin_log 10 as admin_log for_user user %}
+                            {% if not admin_log %}
+                                <p>{% translate 'None available' %}</p>
+                            {% else %}
+                                <ul class="actionlist">
+                                {% for entry in admin_log %}
+                                <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                                    {% if entry.is_deletion or not entry.get_admin_url %}
+                                       <span style="color:dark"> {{ entry.object_repr }} </span>
+                                    {% else %}
+                                        <a style="color:dark" href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                                    {% endif %}
+                                    <br>
+                                    {% if entry.content_type %}
+                                        <span style="color:darkcyan">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
+                                    {% else %}
+                                        <span style="color:darkcyan">{% translate 'Unknown content' %}</span>
+                                    {% endif %}
+                                </li>
+                                {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+        </div>
+  </div>
+{% endblock %}
+
