@@ -39,6 +39,7 @@ class CarrierStoreEntranceAdmin(admin.StackedInline):
                     'product_entry_date', 'guardian_name', 'comments', ''
                     )
     search_fields = ('carrier_identifier', 'container_number',)
+    extra = 1
 
 
 class ProductStoreEntranceAdmin(admin.StackedInline):
@@ -51,6 +52,7 @@ class ProductStoreEntranceAdmin(admin.StackedInline):
                     'packaging', 'theoretical_weight', 'actual_weight',
                     'zone_warehouse',
                     'product_comments')
+    extra = 1
 
 
 class StoreEntranceAdmin(admin.ModelAdmin):
