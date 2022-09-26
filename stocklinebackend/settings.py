@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'django_extensions',
+    'admin_searchable_dropdown',
 
     # apps
     'users',

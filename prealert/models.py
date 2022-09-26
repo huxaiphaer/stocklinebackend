@@ -168,6 +168,10 @@ class GuaranteedGoods(TimeStampedModel, models.Model):
     def __str__(self):
         return f'{self.batch_number}'
 
+    class Meta:
+        verbose_name = 'Holding certificate'
+        verbose_name_plural = 'Holding certificate'
+
 
 class StoreEntrance(TimeStampedModel, models.Model):
 
@@ -214,6 +218,10 @@ class StoreEntrance(TimeStampedModel, models.Model):
 
     def __str__(self):
         return f'{self.id}'
+
+    class Meta:
+        verbose_name = 'Store Entrance'
+        verbose_name_plural = 'Store Entrance'
 
 
 class CarrierStoreEntrance(TimeStampedModel, models.Model):
