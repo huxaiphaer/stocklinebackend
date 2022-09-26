@@ -9,7 +9,7 @@ class PreAlertAdmin(admin.ModelAdmin):
                     'quantity', 'contract_number', 'from_or_origin',
                     'packaging', 'commentaries', 'type', 'weight',
                     'notifications', 'user', 'status', 'priority')
-    search_fields = ('customer', 'contract_number',)
+    search_fields = ('customer__customer_name', 'contract_number',)
 
 
 class WeighBridgeAdmin(admin.ModelAdmin):
