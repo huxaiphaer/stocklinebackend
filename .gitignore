@@ -1,4 +1,5 @@
 .DS_Store
+.idea
 *.idea
 forums/.idea
 forums/.idea/*
@@ -14,6 +15,7 @@ forums/venv/*
 # Editors
 .vscode/
 .idea/
+*.py[co]
 
 # Vagrant
 .vagrant/
