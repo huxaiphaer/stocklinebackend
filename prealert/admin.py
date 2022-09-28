@@ -1,25 +1,41 @@
 from django.contrib import admin
+from import_export.admin import ImportExportMixin
 
 from prealert.models import PreAlert, WeighBridge, GuaranteedGoods, \
     StoreEntrance, CarrierStoreEntrance, ProductStoreEntrance
+from prealert.resources import PreAlertCommonResourcesClass, \
+    WeighBridgeCommonResourcesClass
 
 
-class PreAlertAdmin(admin.ModelAdmin):
+class PreAlertAdmin(ImportExportMixin, admin.ModelAdmin):
     list_display = ('id', 'customer', 'product',
                     'quantity', 'contract_number', 'from_or_origin',
                     'packaging', 'commentaries', 'type',
                     'notifications', 'user', 'status', 'priority')
-    readonly_fields = ('calculated_weight', )
-    search_fields = ('customer__customer_name', 'contract_number',)
-
-
-class WeighBridgeAdmin(admin.ModelAdmin):
-    list_display = (
-        'id', 'vehicle_number', 'transporter',
-        'vehicle_reg_num', 'commodity', 'trailer_reg_num', 'user', 'entry_date',
-        'exit_time', 'print_date', 'status',
+    readonly_fields = ('calculated_weight',)
+    fieldsets = (
+        ('Pre Alert fields', {
+            'fields': ('customer', 'product',
+                       'quantity', 'contract_number', 'from_or_origin',
+                       'packaging', 'commentaries', 'type',
+                       'notifications', 'user', 'status', 'priority')
+        }),
+        ('Weight', {
+            'fields': ('calculated_weight',)
+        }),
     )
+    search_fields = ('customer__customer_name', 'contract_number',)
+    resource_class = PreAlertCommonResourcesClass
+
+
+class WeighBridgeAdmin(ImportExportMixin, admin.ModelAdmin):
+
+    list_display = ('id', 'print_date', 'vehicle_number', 'entry_date',
+                    'transporter', 'exit_time',
+                    'vehicle_reg_num', 'trailer_reg_num', 'client_name_field',
+                    'commodity', 'status', 'user')
     search_fields = ('vehicle_number', 'transporter',)
+    resource_class = WeighBridgeCommonResourcesClass
 
 
 class GuaranteedGoodsAdmin(admin.ModelAdmin):
@@ -57,7 +73,7 @@ class ProductStoreEntranceAdmin(admin.StackedInline):
 
 
 class StoreEntranceAdmin(admin.ModelAdmin):
-    list_display = ('id','transaction_type', 'product', 'country',
+    list_display = ('id', 'transaction_type', 'product', 'country',
                     'client_name_field',
                     'flux', 'store', 'po_number', 'shipment_number',
                     'quantity', 'user', 'packaging')
@@ -72,4 +88,3 @@ admin.site.register(PreAlert, PreAlertAdmin)
 admin.site.register(WeighBridge, WeighBridgeAdmin)
 admin.site.register(GuaranteedGoods, GuaranteedGoodsAdmin)
 admin.site.register(StoreEntrance, StoreEntranceAdmin)
-# admin.site.register(CarrierStoreEntrance)

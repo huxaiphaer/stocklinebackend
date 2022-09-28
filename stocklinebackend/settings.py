@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_extensions',
     'admin_searchable_dropdown',
+    'import_export',
 
     # apps
     'users',

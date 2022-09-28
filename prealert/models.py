@@ -125,8 +125,6 @@ class WeighBridge(TimeStampedModel, models.Model):
         _('Import'), max_length=400, blank=True, null=True)
     _export = models.CharField(
         _('Export'), max_length=400, blank=True, null=True)
-    client_name = models.CharField(
-        _('Client Name'), max_length=400, blank=True, null=True)
     client_name_field = models.ForeignKey(
         User, related_name='client_name_weight', null=True,
         on_delete=models.SET_NULL)
