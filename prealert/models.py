@@ -73,7 +73,6 @@ class PreAlert(TimeStampedModel, models.Model):
                             choices=TYPE_STATUSES,
                             default=DEFAULT_TRANSACTION_TYPE, )
 
-    weight = models.FloatField(_('Weight'), blank=True, null=True)
     notifications = models.BooleanField(_('Notifications'), default=False)
     user = models.ForeignKey(User, related_name='prealert', null=True,
                              on_delete=models.SET_NULL)
