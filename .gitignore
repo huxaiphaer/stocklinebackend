@@ -31,6 +31,7 @@ Thumbs.db
 __pycache__/
 *.py[cod]
 *$py.class
+*.py[co]
 
 # C extensions
 *.so
