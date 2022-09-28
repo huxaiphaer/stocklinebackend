@@ -3,21 +3,14 @@ from django.contrib import admin
 from prealert.models import PreAlert, WeighBridge, GuaranteedGoods, \
     StoreEntrance, CarrierStoreEntrance, ProductStoreEntrance
 
-from admin_searchable_dropdown.filters import AutocompleteFilter
-
-
-class CustomerFilter(AutocompleteFilter):
-    title = 'customer'
-    field_name = 'customer'
-
 
 class PreAlertAdmin(admin.ModelAdmin):
     list_display = ('id', 'customer', 'product',
                     'quantity', 'contract_number', 'from_or_origin',
-                    'packaging', 'commentaries', 'type', 'weight',
+                    'packaging', 'commentaries', 'type', 'calculated_weight',
                     'notifications', 'user', 'status', 'priority')
-    search_fields = ('customer', 'contract_number',)
-    list_filter = [CustomerFilter]
+    readonly_fields = ('calculated_weight', )
+    search_fields = ('customer__customer_name', 'contract_number',)
 
 
 class WeighBridgeAdmin(admin.ModelAdmin):
@@ -47,6 +40,7 @@ class CarrierStoreEntranceAdmin(admin.StackedInline):
                     'product_entry_date', 'guardian_name', 'comments', ''
                     )
     search_fields = ('carrier_identifier', 'container_number',)
+    extra = 1
 
 
 class ProductStoreEntranceAdmin(admin.StackedInline):
@@ -59,6 +53,7 @@ class ProductStoreEntranceAdmin(admin.StackedInline):
                     'packaging', 'theoretical_weight', 'actual_weight',
                     'zone_warehouse',
                     'product_comments')
+    extra = 1
 
 
 class StoreEntranceAdmin(admin.ModelAdmin):

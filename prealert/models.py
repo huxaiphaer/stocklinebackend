@@ -88,6 +88,10 @@ class PreAlert(TimeStampedModel, models.Model):
     def __str__(self):
         return f'{self.customer} {self.quantity} {self.user}'
 
+    @property
+    def calculated_weight(self):
+        return self.quantity * self.packaging.quantity
+
 
 class WeighBridge(TimeStampedModel, models.Model):
     """WeighBridge"""
