@@ -48,4 +48,4 @@ class Packaging(TimeStampedModel, models.Model):
                                  blank=True, null=True)
 
     def __str__(self):
-        return f'{self.packaging_name}'
+        return f'{self.packaging_name} {self.packaging_type} {self.quantity}'

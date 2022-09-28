@@ -59,7 +59,8 @@ class PreAlert(TimeStampedModel, models.Model):
     product = models.ForeignKey(Product,
                                 related_name='product_pre_alert',
                                 null=True, on_delete=models.SET_NULL)
-    quantity = models.FloatField(_('Quantity'), blank=True, null=True)
+    quantity = models.FloatField(
+        _('Quantity'), blank=True, null=True, default=0.0)
     contract_number = models.CharField(_('Contract Number'),
                                        max_length=400, blank=True,
                                        null=True)
@@ -87,6 +88,12 @@ class PreAlert(TimeStampedModel, models.Model):
 
     def __str__(self):
         return f'{self.customer} {self.quantity} {self.user}'
+
+    @property
+    def calculated_weight(self):
+        if self.quantity:
+            return self.quantity * self.packaging.quantity
+        return 0
 
 
 class WeighBridge(TimeStampedModel, models.Model):
@@ -121,6 +128,9 @@ class WeighBridge(TimeStampedModel, models.Model):
         _('Export'), max_length=400, blank=True, null=True)
     client_name = models.CharField(
         _('Client Name'), max_length=400, blank=True, null=True)
+    client_name_field = models.ForeignKey(
+        User, related_name='client_name_weight', null=True,
+        on_delete=models.SET_NULL)
     from_destination = models.CharField(
         _('From'), max_length=400, blank=True, null=True)
     to_destination = models.CharField(
@@ -186,6 +196,9 @@ class StoreEntrance(TimeStampedModel, models.Model):
     country = CountryField()
     client_name = models.CharField(
         _('Client Name'), max_length=400, blank=True, null=True)
+    client_name_field = models.ForeignKey(
+        User, related_name='client_name_store',
+        null=True, on_delete=models.SET_NULL)
     flux = models.CharField(_('Flux'), max_length=100,
                             choices=STORE_ENTRANCE_STATUS,
                             default=WEIGH_STATUS_DEFAULT)
