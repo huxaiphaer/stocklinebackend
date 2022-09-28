@@ -62,7 +62,8 @@ class ProductStoreEntranceAdmin(admin.StackedInline):
 
 
 class StoreEntranceAdmin(admin.ModelAdmin):
-    list_display = ('id','transaction_type', 'product', 'country', 'client_name',
+    list_display = ('id', 'transaction_type', 'product', 'country',
+                    'client_name',
                     'flux', 'store', 'po_number', 'shipment_number',
                     'quantity', 'user', 'packaging')
     search_fields = ('transaction_type', 'product',)
