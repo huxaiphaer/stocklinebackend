@@ -15,6 +15,7 @@ forums/venv/*
 # Editors
 .vscode/
 .idea/
+*.py[co]
 
 # Vagrant
 .vagrant/
