@@ -7,7 +7,7 @@ from prealert.models import PreAlert, WeighBridge, GuaranteedGoods, \
 class PreAlertAdmin(admin.ModelAdmin):
     list_display = ('id', 'customer', 'product',
                     'quantity', 'contract_number', 'from_or_origin',
-                    'packaging', 'commentaries', 'type', 'calculated_weight',
+                    'packaging', 'commentaries', 'type',
                     'notifications', 'user', 'status', 'priority')
     readonly_fields = ('calculated_weight', )
     search_fields = ('customer__customer_name', 'contract_number',)
@@ -57,8 +57,8 @@ class ProductStoreEntranceAdmin(admin.StackedInline):
 
 
 class StoreEntranceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'transaction_type', 'product', 'country',
-                    'client_name',
+    list_display = ('id','transaction_type', 'product', 'country',
+                    'client_name_field',
                     'flux', 'store', 'po_number', 'shipment_number',
                     'quantity', 'user', 'packaging')
     search_fields = ('transaction_type', 'product',)
