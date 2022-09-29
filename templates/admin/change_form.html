@@ -22,7 +22,6 @@
 </div>
 {% endblock %}
 {% endif %}
-
 {% block content %}<div id="content-main">
 {% block object-tools %}
 {% if change %}{% if not is_popup %}
@@ -78,4 +77,17 @@
 
 </div>
 </form></div>
+    <script>
+    quantity_field = document.getElementById("id_quantity");
+    quantity_field.addEventListener('input', e => {
+         const quantity = document.getElementById("id_quantity").value;
+         const sel = document.getElementById("id_packaging");
+         const value_extraction = sel.options[sel.selectedIndex].text;
+         const value_packaging = value_extraction.split(' ')[2]
+         const final_weight = quantity * value_packaging
+         const read_only_field = document.getElementsByClassName('readonly')
+         read_only_field[0].innerText = final_weight
+    });
+
+    </script>
 {% endblock %}
