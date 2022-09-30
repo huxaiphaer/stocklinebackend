@@ -10,15 +10,14 @@
 
 {% block coltype %}colM{% endblock %}
 
-{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+{% block bodyclass %}{{ block.super }}   change-form{% endblock %}
 
 {% if not is_popup %}
 {% block breadcrumbs %}
 <div class="breadcrumbs">
 <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
-&rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
-&rsaquo; {% if has_view_permission %}<a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %}
-&rsaquo; {% if add %}{% blocktranslate with name=opts.verbose_name %}Add {{ name }}{% endblocktranslate %}{% else %}{{ original|truncatewords:"18" }}{% endif %}
+&rsaquo; <a href=""></a>
+&rsaquo; {% if has_view_permission %}<a href=""></a>{% else %}{% endif %}
 </div>
 {% endblock %}
 {% endif %}
@@ -32,28 +31,14 @@
   </ul>
 {% endif %}{% endif %}
 {% endblock %}
-<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}{% if form_url %}action="{{ form_url }}" {% endif %}method="post" id="{{ opts.model_name }}_form" novalidate>{% csrf_token %}{% block form_top %}{% endblock %}
-<div>
-    {% if request.path == '/prealert/guaranteedgoods/add/' %}
-       <form action="/select-list-products/" method="post">
+<!--add the fields here -->
+ <form action="/select-list-products/" method="post">
             {% csrf_token %}
             {{ form }}
-    <input type="submit" value="Submit">
-</form>
-    {% endif %}
+    <input type="submit" value="Search HC">
+    </form>
 </div>
-</form></div>
     <script>
-    quantity_field = document.getElementById("id_quantity");
-    quantity_field.addEventListener('input', e => {
-         const quantity = document.getElementById("id_quantity").value;
-         const sel = document.getElementById("id_packaging");
-         const value_extraction = sel.options[sel.selectedIndex].text;
-         const value_packaging = value_extraction.split(' ')[2]
-         const final_weight = quantity * value_packaging
-         const read_only_field = document.getElementsByClassName('readonly')
-         read_only_field[0].innerText = final_weight
-    });
 
     </script>
 {% endblock %}

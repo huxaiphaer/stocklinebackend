@@ -9,7 +9,6 @@ from django_extensions.db.models import TimeStampedModel
 from customer.models import Product, Packaging, Customer
 from users.models import User
 
-
 TYPE_STATUSES = [
     ('Inbound', 'Inbound'),
     ('Outbound', 'Outbound'),
@@ -180,7 +179,6 @@ class GuaranteedGoods(TimeStampedModel, models.Model):
 
 
 class StoreEntrance(TimeStampedModel, models.Model):
-
     """Store Entrance"""
 
     transaction_type = models.CharField(_('Transaction Type'),
@@ -234,7 +232,6 @@ class StoreEntrance(TimeStampedModel, models.Model):
 
 
 class CarrierStoreEntrance(TimeStampedModel, models.Model):
-
     """Store entrance carrier."""
 
     carrier_identifier = models.CharField(
@@ -269,7 +266,6 @@ class CarrierStoreEntrance(TimeStampedModel, models.Model):
 
 
 class ProductStoreEntrance(TimeStampedModel, models.Model):
-
     """Product Store Entrance"""
 
     purchase_order_number = models.CharField(
@@ -301,6 +297,26 @@ class ProductStoreEntrance(TimeStampedModel, models.Model):
         StoreEntrance,
         related_name='store_entrance_entrance',
         null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return f'{self.id}'
+
+
+class HousingCertificateSearchModel(TimeStampedModel, models.Model):
+    """HousingCertificate Model"""
+
+    customer = models.ForeignKey(Customer,
+                                 related_name='customer_hcm',
+                                 null=True, on_delete=models.SET_NULL)
+    product = models.ForeignKey(Product,
+                                related_name='product_hcm',
+                                null=True, on_delete=models.SET_NULL)
+    ware = models.CharField(
+        _('Ware house'), max_length=400, blank=True, null=True)
+    season = models.CharField(
+        _('Season'), max_length=400, blank=True, null=True)
+    entity = models.CharField(
+        _('Entity'), max_length=400, blank=True, null=True)
 
     def __str__(self):
         return f'{self.id}'
