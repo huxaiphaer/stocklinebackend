@@ -1,12 +1,16 @@
+from django.views.decorators.csrf import csrf_protect
 from rest_framework import generics, response, status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.utils.translation import gettext_lazy as _
 
 from customer.models import Product, Customer
+from prealert.forms import HousingCertificateSearchForm
 from prealert.models import PreAlert, WeighBridge, GuaranteedGoods
 from prealert.serializers import PreAlertSerializer, WeighBridgeSerializer, \
     GuaranteedGoodsSerializer
 from users.models import User
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
 
 class PreAlertView(generics.ListCreateAPIView):
@@ -212,4 +216,23 @@ class GuaranteedGoodsDetailView(generics.RetrieveUpdateDestroyAPIView):
                 status=status.HTTP_200_OK)
 
 
-
+# @csrf_protect
+# def search_housing_certificate_view(request):
+#     # if this is a POST request we need to process the form data
+#     if request.method == 'POST':
+#         # create a form instance and populate it with data from the request:
+#         form = HousingCertificateSearchForm(request.POST)
+#         # check whether it's valid:
+#         if form.is_valid():
+#             # process the data in form.cleaned_data as required
+#             # ...
+#             # redirect to a new URL:
+#             return HttpResponseRedirect('/thanks/')
+#
+#     # if a GET (or any other method) we'll create a blank form
+#     else:
+#         form = HousingCertificateSearchForm()
+#
+#     return render(
+#         request, 'admin/search_housing_certificate.html', {'form': form}
+#     )
