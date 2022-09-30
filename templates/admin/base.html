@@ -28,7 +28,7 @@
   data-admin-utc-offset="{% now "Z" %}">
 
   <!-- Container -->
-  <div id="container">
+  <div id="container" style="overflow:hidden; height: 110vh;">
       {% if not is_popup %}
       <!-- Header -->
       {% block header %}
@@ -40,10 +40,11 @@
           box-shadow: rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
         }
         .main > .content {
-          height: 100vh !important;
+          height: 100% !important;
           overflow-y: scroll;
           flex: 1 0;
           max-width: 100%;
+          position:relative;
         }
         body::-webkit-scrollbar, body ::-webkit-scrollbar {
           background-color: inherit;
@@ -55,43 +56,46 @@
           border-radius: 1.em;
           background-color: rgb(205, 212, 220);
         }
+
       </style>
-      <div class="heading">
-        <div>
-          <img src="{% static 'images/logo.png' %}" alt="Stockline Logo" class="mx-auto">
-        </div>
-        <div style="text-transform: uppercase;">
-          {% block usertools %}
-          {% if has_permission %}
+      <header>
+        <div class="heading">
           <div >
-              {% block welcome-msg %}
-                  {% translate 'Welcome,' %}
-                  <strong>{% firstof user.get_short_name user.get_username %}</strong>.
-              {% endblock %}
-              {% block userlinks %}
-                  {% if site_url %}
-                      <a href="{{ site_url }}">{% translate 'View site' %}</a> /
-                  {% endif %}
-                  {% if user.is_active and user.is_staff %}
-                      {% url 'django-admindocs-docroot' as docsroot %}
-                      {% if docsroot %}
-                          <a href="{{ docsroot }}">{% translate 'Documentation' %}</a> /
-                      {% endif %}
-                  {% endif %}
-                  {% if user.has_usable_password %}
-                  <a href="{% url 'admin:password_change' %}">{% translate 'Change password' %}</a> /
-                  {% endif %}
-                  <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
-                      {% csrf_token %}
-                      <button type="submit" style="background-color: inherit;border: none; color:blue;font-weight: 500;font-size: 16px;float:right">{% translate 'Log out' %}</button>
-                  </form>
-              {% endblock %}
+            <img src="{% static 'images/logo.png' %}" alt="Stockline Logo" class="mx-auto">
           </div>
-          {% endif %}
-          {% endblock %}
-          {% block nav-global %}{% endblock %}
+          <div style="text-transform: uppercase;">
+            {% block usertools %}
+            {% if has_permission %}
+            <div >
+                {% block welcome-msg %}
+                    {% translate 'Welcome,' %}
+                    <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+                {% endblock %}
+                {% block userlinks %}
+                    {% if site_url %}
+                        <a href="{{ site_url }}">{% translate 'View site' %}</a> /
+                    {% endif %}
+                    {% if user.is_active and user.is_staff %}
+                        {% url 'django-admindocs-docroot' as docsroot %}
+                        {% if docsroot %}
+                            <a href="{{ docsroot }}">{% translate 'Documentation' %}</a> /
+                        {% endif %}
+                    {% endif %}
+                    {% if user.has_usable_password %}
+                    <a href="{% url 'admin:password_change' %}">{% translate 'Change password' %}</a> /
+                    {% endif %}
+                    <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" style="background-color: inherit;border: none; color:blue;font-weight: 500;font-size: 16px;float:right">{% translate 'Log out' %}</button>
+                    </form>
+                {% endblock %}
+            </div>
+            {% endif %}
+            {% endblock %}
+            {% block nav-global %}{% endblock %}
+          </div>
         </div>
-      </div>
+    </header>
       {% endblock %}
       <!-- END Header -->
       {% endif %}
