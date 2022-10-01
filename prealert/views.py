@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_protect
 from rest_framework import generics, response, status
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -5,7 +6,8 @@ from django.utils.translation import gettext_lazy as _
 
 from customer.models import Product, Customer
 from prealert.forms import HousingCertificateSearchForm
-from prealert.models import PreAlert, WeighBridge, GuaranteedGoods
+from prealert.models import PreAlert, WeighBridge, GuaranteedGoods, \
+    ManagementByLot
 from prealert.serializers import PreAlertSerializer, WeighBridgeSerializer, \
     GuaranteedGoodsSerializer
 from users.models import User
@@ -224,13 +226,19 @@ def search_housing_certificate_view(request):
         form = HousingCertificateSearchForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
+            lot = ManagementByLot.objects.all()
+            customer = form['customer'].value()
+            product = form['product'].value()
+            ware = form['ware'].value()
+            season = form['season'].value()
+            entity = form['entity'].value()
+            url = f"{reverse('admin:prealert_managementbylot_changelist')}?customer={customer}&product={product}"
 
-            return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect(url)
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = HousingCertificateSearchForm()
-
-    return render(
-        request, 'admin/search_housing_certificate.html', {'form': form}
-    )
+        return render(
+            request, 'admin/search_housing_certificate.html', {'form': form}
+        )

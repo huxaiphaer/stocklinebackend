@@ -320,3 +320,42 @@ class HousingCertificateSearchModel(TimeStampedModel, models.Model):
 
     def __str__(self):
         return f'{self.id}'
+
+
+class ManagementByLot(TimeStampedModel, models.Model):
+    """Management by lot."""
+
+    transaction_type = models.CharField(_('Transaction Type'),
+                                        max_length=100,
+                                        choices=TRANSACTION_TYPES,
+                                        default=DEFAULT_TRANSACTION_TYPE, )
+    product = models.ForeignKey(Product, related_name='product_lot',
+                                null=True, on_delete=models.SET_NULL)
+    customer = models.ForeignKey(Customer, related_name='customer_lot',
+                                 null=True, on_delete=models.SET_NULL)
+    batch_number = models.CharField(_('Batch Number '),
+                                    max_length=400, blank=True, null=True)
+    quantity = models.FloatField(
+        _('Quantity'), blank=True, null=True, default=0.0)
+    packaging = models.ForeignKey(Packaging,
+                                  related_name='packaging_lot',
+                                  null=True, on_delete=models.SET_NULL)
+    real_weight = models.FloatField(
+        _('Real weight '), blank=True, null=True, default=0.0)
+    quantity_hc = models.FloatField(
+        _('Quantity HC'), blank=True, null=True, default=0.0)
+
+    def __str__(self):
+        return f'{self.id}'
+
+    @property
+    def theoretical_weight(self):
+        return self.packaging.quantity * self.quantity
+
+    @property
+    def theoretical_weight_hc(self):
+        return self.packaging.quantity * self.quantity_hc
+
+    @property
+    def real_weight_hc(self):
+        return 0

@@ -32,11 +32,11 @@
 {% endif %}{% endif %}
 {% endblock %}
 <!--add the fields here -->
- <form action="/select-list-products/" method="post">
+ <form  method="post" action="/api/v1/search_holding_certificate/">
             {% csrf_token %}
-            {{ form }}
+            {{ form.as_p }}
     <input type="submit" value="Search HC">
-    </form>
+ </form>
 </div>
     <script>
 
