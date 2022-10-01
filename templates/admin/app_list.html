@@ -1,72 +1,271 @@
 {% load i18n %}
-<div class="position-sticky">
+{% load i18n static %}
+<div id="drawer" class="position-sticky">
 {% if app_list %}
 <div class="px-0">
-<div>
-  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
+  <div>
+    <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
+        <a 
+          {% if '/admin/' in request.path %} 
+            class="active-link"
+          {% endif %}
+          href="{% url 'admin:index' %}"
+          {% if '/admin/' in request.path|urlencode %} 
+            aria-current="page"
+          {% endif %} 
+          class="py-2" 
+          aria-current="true"
+        >
+        <img src="{% static 'images/homeIcon.png' %}" alt="HomeIcon" class="mx-auto">
+        <span>{% translate 'Home' %}</span>
+      </a>
+    </li>
+    <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
       <a 
-        {% if '/admin/' in request.path %} 
+        {% if '/prealert/prealert/' == request.path %} 
           class="active-link"
         {% endif %}
-        href="{% url 'admin:index' %}"
+        href="/prealert/prealert/"
         {% if '/admin/' in request.path|urlencode %} 
           aria-current="page"
         {% endif %} 
         class="py-2" 
         aria-current="true"
       >
-      <i class="fas fa-home fa-fw me-3"></i><span>{% translate 'Home' %}</span>
+      <img src="{% static 'images/preAlertIcon.png' %}" alt="HomeIcon" class="mx-auto">
+      <span>{% translate 'Pre Alert' %}</span>
     </a>
   </li>
-  {% for app in app_list %}
-            {% for model in app.models %}          
-            <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
-                {% if model.admin_url %}
-                  <a 
-                    {% if model.admin_url in request.path %} 
-                      class="active-link"
-                    {% endif %}
-                    href="{{ model.admin_url }}"
-                    {% if model.admin_url in request.path|urlencode %} 
-                      aria-current="page"
-                    {% endif %} 
-                    class="py-2" 
-                    aria-current="true"
-                  >
-                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>{{ model.name }}</span>
-                </a>
-                {% else %}
-                  <div scope="row">{{ model.name }}</div>
-                {% endif %}
-            </li>
-            {% endfor %} 
-        
-  {% endfor %}
+  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
+    <a 
+      {% if '/prealert/weighbridge/' == request.path %} 
+        class="active-link"
+      {% endif %}
+      href="/prealert/weighbridge/"
+      {% if '/admin/' in request.path|urlencode %} 
+        aria-current="page"
+      {% endif %} 
+      class="py-2" 
+      aria-current="true"
+    >
+      <img src="{% static 'images/weighBridgeIcon.png' %}" alt="Weigh Bridge Icon" class="mx-auto">
+      <span>{% translate 'Weigh Bridge' %}</span>
+    </a>
+  </li>
+  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
+    <a 
+      {% if '/prealert/guaranteedgoods/' == request.path %} 
+        class="active-link"
+      {% endif %}
+      href="/prealert/guaranteedgoods/"
+      {% if '/prealert/guaranteedgoods/' == request.path|urlencode %} 
+        aria-current="page"
+      {% endif %} 
+      class="py-2" 
+      aria-current="true"
+    >
+      <img src="{% static 'images/holdingCertificate.png' %}" alt="Holding Certificate" class="mx-auto">
+      <span>{% translate 'Holding Certificate' %}</span>
+    </a>
+  </li>
+  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
+    <a 
+      {% if '/prealert/storeentrance/' == request.path %} 
+        class="active-link"
+      {% endif %}
+      href="/prealert/storeentrance/"
+      {% if '/prealert/storeentrance/' == request.path|urlencode %} 
+        aria-current="page"
+      {% endif %} 
+      class="py-2" 
+      aria-current="true"
+    >
+      <img src="{% static 'images/storeEntranceIcon.png' %}" class="mx-auto">
+      <span>{% translate 'Store Entance' %}</span>
+    </a>
+  </li>
+  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
+    <a 
+      {% if '#' == request.path %} 
+        class="active-link"
+      {% endif %}
+      href="#"
+      {% if '#' == request.path|urlencode %} 
+        aria-current="page"
+      {% endif %} 
+      class="py-2" 
+      aria-current="true"
+    >
+      <img src="{% static 'images/storeOperationsIcon.png' %}" class="mx-auto">
+      <span>{% translate 'Store Operations' %}</span>
+    </a>
+  </li>
 
-</div>
+  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
+    <a 
+      {% if '/customer/customer/' == request.path %} 
+        class="active-link"
+      {% endif %}
+      href="/customer/customer/"
+      {% if '/customer/customer/' == request.path|urlencode %} 
+        aria-current="page"
+      {% endif %} 
+      class="py-2" 
+      aria-current="true"
+    >
+      <img src="{% static 'images/customersIcon.png' %}" class="mx-auto">
+      <span>{% translate 'Customers' %}</span>
+    </a>
+  </li>
+  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
+    <a 
+      {% if '/customer/packaging/' == request.path %} 
+        class="active-link"
+      {% endif %}
+      href="/customer/packaging/"
+      {% if '/customer/packaging/' == request.path|urlencode %} 
+        aria-current="page"
+      {% endif %} 
+      class="py-2" 
+      aria-current="true"
+    >
+      <img src="{% static 'images/packagingIcon.png' %}" class="mx-auto">
+      <span>{% translate 'Packaging' %}</span>
+    </a>
+  </li>
+  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
+    <a 
+      {% if '/customer/product/' == request.path %} 
+        class="active-link"
+      {% endif %}
+      href="/customer/product/"
+      {% if '/customer/product/' == request.path|urlencode %} 
+        aria-current="page"
+      {% endif %} 
+      class="py-2" 
+      aria-current="true"
+    >
+      <img src="{% static 'images/productIcon.png' %}" class="mx-auto">
+      <span>{% translate 'Products' %}</span>
+    </a>
+  </li>
+  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
+    <a 
+      {% if '#' == request.path %} 
+        class="active-link"
+      {% endif %}
+      href="#"
+      {% if '#' == request.path|urlencode %} 
+        aria-current="page"
+      {% endif %} 
+      class="py-2" 
+      aria-current="true"
+    >
+      <img src="{% static 'images/storeOutletIcon.png' %}" class="mx-auto">
+      <span>{% translate 'Store Outlet' %}</span>
+    </a>
+  </li>
+  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
+    <a 
+      {% if '#' == request.path %} 
+        class="active-link"
+      {% endif %}
+      href="#"
+      {% if '#' == request.path|urlencode %} 
+        aria-current="page"
+      {% endif %} 
+      class="py-2" 
+      aria-current="true"
+    >
+      <img src="{% static 'images/reportsIcon.png' %}" class="mx-auto">
+      <span>{% translate 'Reports' %}</span>
+    </a>
+  </li>
+  {% comment %} this creates the Administration/ settings menu with child links {% endcomment %}
+  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
+    <details>
+      <summary>
+        <img src="{% static 'images/administrationIcon.png' %}" class="mx-auto"> 
+        <span>{% translate 'Administration' %}</span>
+      </summary> 
+      {% for app in app_list %}
+      {% for model in app.models %}  
+      {% if model.name == 'Users' or model.name == 'Groups' %}        
+        <li class="sidebar-list-item" style="list-style-type: none;border: none !important; margin-left: 5px;">
+            {% if model.admin_url  %}
+              <a 
+                {% if model.admin_url in request.path %} 
+                  class="active-link"
+                {% endif %}
+                href="{{ model.admin_url }}"
+                {% if model.admin_url in request.path|urlencode %} 
+                  aria-current="page"
+                {% endif %} 
+                class="py-2" 
+                aria-current="true"
+              >
+              {% comment %} dynamically adding icons {% endcomment %}
+              {% if model.name == 'Pre alerts' %} 
+                <img src="{% static 'images/preAlertIcon.png' %}" alt="HomeIcon" class="mx-auto">
+              {% endif %}
+              <span>{{ model.name }}</span>
+            </a>
+            {% else %}
+              <div scope="row">{{ model.name }}</div>
+            {% endif %}
+        </li>
+      {% endif %}
+      {% endfor %} 
+    {% endfor %}
+    </details>
+  </li>
+  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
+    <a 
+      {% if '#' == request.path %} 
+        class="active-link"
+      {% endif %}
+      href="#"
+      {% if '#' == request.path|urlencode %} 
+        aria-current="page"
+      {% endif %} 
+      class="py-2" 
+      aria-current="true"
+    >
+      <img src="{% static 'images/documentationIcon.png' %}" class="mx-auto">
+      <span>{% translate 'Documentation' %}</span>
+    </a>
+  </li>
+  
+  </div>
 </div>
 <style>
-  :root{
-  
-  }
   li {
     border: none !important;
     background-color: initial;
+    width: 100% !important;
   }
-  .sidebar-list-item > a:link, a:visited {
+  .sidebar-list-item > a:link, a:visited, summary {
     position: relative;
-    display: block;
+    display: flex;
+    align-items: stretch;
     padding: 10px 15px;
     color: white !important;
     font-size: 16px !important;
     margin-bottom: -1px;
   }
-  .sidebar-list-item > a:hover, a.active-link, a:active {
+  .sidebar-list-item > a:hover, a.active-link, a:active, details:hover {
     text-decoration: none;
     border-left: 4px solid white;
     background-color: rgb(33, 140, 83) !important;
   }
 
+  #drawer{
+    margin-top: 10px;
+    width: 220px !important;
+  }
+  a  > img, summary > img {
+    margin-right: 0.5em;
+  }
 </style>
 {% else %}
   <p>{% translate 'You don’t have permission to view or edit anything.' %}</p>
