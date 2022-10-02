@@ -1,0 +1,168 @@
+{% load i18n static %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
+<head>
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}">
+{% block dark-mode-vars %}
+  <link rel="stylesheet" href="{% static "admin/css/dark_mode.css" %}">
+{% endblock %}
+{% if not is_popup and is_nav_sidebar_enabled %}
+  <link rel="stylesheet" href="{% static "admin/css/nav_sidebar.css" %}">
+  <script src="{% static 'admin/js/nav_sidebar.js' %}" defer></script>
+{% endif %}
+{% block extrastyle %}{% endblock %}
+{% if LANGUAGE_BIDI %}<link rel="stylesheet" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}">{% endif %}
+{% block extrahead %}{% endblock %}
+{% block responsive %}
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="{% static "admin/css/responsive.css" %}">
+    {% if LANGUAGE_BIDI %}<link rel="stylesheet" href="{% static "admin/css/responsive_rtl.css" %}">{% endif %}
+{% endblock %}
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
+<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+<link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+</head>
+
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
+  data-admin-utc-offset="{% now "Z" %}">
+  <style>
+    .heading{
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      box-shadow: rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    }
+    .main > .content {
+      height: 100% !important;
+      overflow-y: scroll;
+      flex: 1 0;
+      max-width: 100%;
+      position:relative;
+    }
+    body::-webkit-scrollbar, body ::-webkit-scrollbar {
+      background-color: inherit;
+    }
+    body::-webkit-scrollbar-corner, body ::-webkit-scrollbar-corner {
+      background-color: rgb(144, 164, 174);
+    }
+    body::-webkit-scrollbar-thumb, body ::-webkit-scrollbar-thumb {
+      border-radius: 1.em;
+      background-color: rgb(205, 212, 220);
+    }
+    .header{
+      grid-area: header;
+      width:100%; 
+    }
+    .sidebar{
+      grid-area: sidebar;
+      width:100%;
+    }
+    .content{
+      grid-area: content;
+      width:100%;
+    }
+    .grid{
+      display: grid;
+      height: 100vh;
+      width: 100vw;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: min-content auto;
+      grid-auto-columns: min-content auto;
+      grid-template-areas:
+        'header header header header header header'
+        'sidebar content content content content content';
+        margin: 0px;
+    }
+  </style>
+  <!-- Container -->
+  <div class="grid">
+    <div class="header">
+        {% if not is_popup %}
+            <!-- Header -->
+            {% block header %}
+                <header>
+                <div class="heading">
+                    <div >
+                    <img src="{% static 'images/logo.png' %}" alt="Stockline Logo" class="mx-auto">
+                    </div>
+                    <div style="text-transform: uppercase;">
+                    {% block usertools %}
+                    {% if has_permission %}
+                    <div >
+                        {% block welcome-msg %}
+                            {% translate 'Welcome,' %}
+                            <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+                        {% endblock %}
+                        {% block userlinks %}
+                            {% if site_url %}
+                                <a href="{{ site_url }}">{% translate 'View site' %}</a> /
+                            {% endif %}
+                            {% if user.is_active and user.is_staff %}
+                                {% url 'django-admindocs-docroot' as docsroot %}
+                                {% if docsroot %}
+                                    <a href="{{ docsroot }}">{% translate 'Documentation' %}</a> /
+                                {% endif %}
+                            {% endif %}
+                            {% if user.has_usable_password %}
+                            <a href="{% url 'admin:password_change' %}">{% translate 'Change password' %}</a> /
+                            {% endif %}
+                            <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" style="background-color: inherit;border: none; color:blue;font-weight: 500;font-size: 16px;float:right">{% translate 'Log out' %}</button>
+                            </form>
+                        {% endblock %}
+                    </div>
+                    {% endif %}
+                    {% endblock %}
+                    {% block nav-global %}{% endblock %}
+                    </div>
+                </div>
+                </header>
+            {% endblock %}
+            <!-- END Header -->
+        {% endif %}
+    </div>
+    <div class="sidebar">
+        {% if not is_popup and is_nav_sidebar_enabled %}
+            {% block nav-sidebar %}
+                {% include "admin/nav_sidebar.html" %}
+            {% endblock %}
+        {% endif %}
+    </div>
+    <div class="content">
+        <div style="background-color: #e5e5e5 !important;">
+            {% comment %} bread crumbs are here  {% endcomment %}
+            {% block breadcrumbs %}
+              <div>
+              <a  href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+              {% if title %} &rsaquo; {{ title }}{% endif %}
+              </div>
+            {% endblock %}
+            {% block messages %}
+              {% if messages %}
+                <ul class="messagelist">{% for message in messages %}
+                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+                {% endfor %}</ul>
+              {% endif %}
+            {% endblock messages %}
+            <!-- Content -->
+            <div id="content" class="{% block coltype %}colM{% endblock %}">
+              {% block pretitle %}{% endblock %}
+              {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+              {% block content_subtitle %}{% if subtitle %}<h2>{{ subtitle }}</h2>{% endif %}{% endblock %}
+              {% block content %}
+                {% block object-tools %}{% endblock %}
+                {{ content }}
+              {% endblock %}
+              {% block sidebar %}{% endblock %}
+              <br class="clear">
+            </div>
+            <!-- END Content -->
+            {% comment %} {% block footer %}<div id="footer"></div>{% endblock %} {% endcomment %}
+          </div>
+    </div>
+</div>
+  <!-- END Container -->
+</body>
+</html>

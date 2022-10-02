@@ -4,9 +4,23 @@
   {% if has_add_permission %}
   <li>
     {% url cl.opts|admin_urlname:'add' as add_url %}
-    <a href="{% add_preserved_filters add_url is_popup to_field %}" class="addlink">
+    <a 
+      href="{% add_preserved_filters add_url is_popup to_field %}" 
+      class="addlink"
+      style="border: 1.8px solid #27AE60;border-radius: 4.21574px; color:#27AE60 !important;background-color:transparent;"
+    >
       {% blocktranslate with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktranslate %}
     </a>
   </li>
+  <style>
+    ul.object-tools > li {
+      margin: 10px;
+      width: auto !important;
+    }
+    ul.object-tools {
+      display: inline-flex !important;
+    }
+  </style>
+
   {% endif %}
 {% endblock %}
