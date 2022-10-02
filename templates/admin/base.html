@@ -28,7 +28,7 @@
   data-admin-utc-offset="{% now "Z" %}">
 
   <!-- Container -->
-  <div id="container" style="overflow:hidden; height: 110vh;">
+  <div id="container" style="">
       {% if not is_popup %}
       <!-- Header -->
       {% block header %}
@@ -38,6 +38,9 @@
           justify-content: space-between;
           padding: 10px;
           box-shadow: rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+        }
+        #container > .main {
+          height: 80vh;
         }
         .main > .content {
           height: 100% !important;
@@ -58,6 +61,7 @@
         }
 
       </style>
+      
       <header>
         <div class="heading">
           <div >
@@ -139,5 +143,6 @@
       </div>
   </div>
   <!-- END Container -->
+
 </body>
 </html>

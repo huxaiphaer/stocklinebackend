@@ -40,7 +40,7 @@
 {% block content %}
   <div id="content-main">
     {% block object-tools %}
-        <ul class="object-tools">
+        <ul class="object-tools" style="display: inline-flex">
           {% block object-tools-items %}
             {% change_list_object_tools %}
           {% endblock %}
@@ -83,13 +83,19 @@
       {% endblock %}
     </div>
     <style>
+
       .module, #toolbar, .actions, module, .results > *, table{
         background-color: #E5E5E5 !important;
         color: black;
       }
       #toolbar{
         border : none !important;
+        width:fit-content;
       }
+      #changelist-form .results {
+        overflow-x: auto;
+        width: 80%;
+       }
       tr{
         height: 48px;
       }

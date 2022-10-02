@@ -100,55 +100,6 @@
       <span>{% translate 'Store Operations' %}</span>
     </a>
   </li>
-
-  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
-    <a 
-      {% if '/customer/customer/' == request.path %} 
-        class="active-link"
-      {% endif %}
-      href="/customer/customer/"
-      {% if '/customer/customer/' == request.path|urlencode %} 
-        aria-current="page"
-      {% endif %} 
-      class="py-2" 
-      aria-current="true"
-    >
-      <img src="{% static 'images/customersIcon.png' %}" class="mx-auto">
-      <span>{% translate 'Customers' %}</span>
-    </a>
-  </li>
-  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
-    <a 
-      {% if '/customer/packaging/' == request.path %} 
-        class="active-link"
-      {% endif %}
-      href="/customer/packaging/"
-      {% if '/customer/packaging/' == request.path|urlencode %} 
-        aria-current="page"
-      {% endif %} 
-      class="py-2" 
-      aria-current="true"
-    >
-      <img src="{% static 'images/packagingIcon.png' %}" class="mx-auto">
-      <span>{% translate 'Packaging' %}</span>
-    </a>
-  </li>
-  <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
-    <a 
-      {% if '/customer/product/' == request.path %} 
-        class="active-link"
-      {% endif %}
-      href="/customer/product/"
-      {% if '/customer/product/' == request.path|urlencode %} 
-        aria-current="page"
-      {% endif %} 
-      class="py-2" 
-      aria-current="true"
-    >
-      <img src="{% static 'images/productIcon.png' %}" class="mx-auto">
-      <span>{% translate 'Products' %}</span>
-    </a>
-  </li>
   <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
     <a 
       {% if '#' == request.path %} 
@@ -190,7 +141,7 @@
       </summary> 
       {% for app in app_list %}
       {% for model in app.models %}  
-      {% if model.name == 'Users' or model.name == 'Groups' %}        
+      {% if model.name == 'Users' or model.name == 'Products' or model.name == 'Packaging' or model.name == 'Groups' or model.name == 'Customers'%}        
         <li class="sidebar-list-item" style="list-style-type: none;border: none !important; margin-left: 5px;">
             {% if model.admin_url  %}
               <a 
@@ -259,6 +210,9 @@
     background-color: rgb(33, 140, 83) !important;
   }
 
+  #changelist {
+    flex-direction: column;
+}
   #drawer{
     margin-top: 10px;
     width: 220px !important;
