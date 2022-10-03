@@ -130,7 +130,6 @@ class SeasonAdmin(admin.ModelAdmin):
 
 
 class EntityAdmin(admin.ModelAdmin):
-
     list_display = ('name', )
 
 

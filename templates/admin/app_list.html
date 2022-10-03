@@ -140,8 +140,8 @@
         <span>{% translate 'Administration' %}</span>
       </summary> 
       {% for app in app_list %}
-      {% for model in app.models %}  
-      {% if model.name == 'Users' or model.name == 'Products' or model.name == 'Packaging' or model.name == 'Groups' or model.name == 'Customers'%}        
+      {% for model in app.models %}
+      {% if model.name == 'Users' or model.name == 'Products' or model.name == 'Packaging' or model.name == 'Groups' or model.name == 'Customers' or model.name == 'Ware houses' or model.name == 'Seasons' or model.name == 'Entitys' %}
         <li class="sidebar-list-item" style="list-style-type: none;border: none !important; margin-left: 5px;">
             {% if model.admin_url  %}
               <a 
