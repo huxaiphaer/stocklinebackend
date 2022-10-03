@@ -11,7 +11,7 @@ from prealert.models import PreAlert, WeighBridge, GuaranteedGoods, \
 from prealert.serializers import PreAlertSerializer, WeighBridgeSerializer, \
     GuaranteedGoodsSerializer
 from users.models import User
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 
@@ -242,3 +242,8 @@ def search_housing_certificate_view(request):
         return render(
             request, 'admin/search_housing_certificate.html', {'form': form}
         )
+
+
+def results(request):
+    response = "You're looking at the results of question %s."
+    return HttpResponse(response)
