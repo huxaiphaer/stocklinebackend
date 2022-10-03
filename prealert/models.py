@@ -14,6 +14,8 @@ TYPE_STATUSES = [
     ('Outbound', 'Outbound'),
 ]
 
+YES = 'Yes'
+
 INBOUND_OUTBOUND = [
     ('Yes', 'Yes'),
     ('No', 'No')
@@ -124,11 +126,16 @@ class WeighBridge(TimeStampedModel, models.Model):
     entry_date = models.DateField(_('Entry Date'), blank=True, null=True)
     exit_time = models.TimeField(_('Exit Time'), blank=True, null=True)
     print_date = models.DateField(_('Print Date'), blank=True, null=True)
-
     _import = models.CharField(
-        _('Inbound'), max_length=400, blank=True, null=True)
+        _('Inbound'),
+        choices=INBOUND_OUTBOUND,
+        default=YES,
+        max_length=400,)
     _export = models.CharField(
-        _('Outbound'), max_length=400, blank=True, null=True)
+        _('Outbound'),
+        choices=INBOUND_OUTBOUND,
+        default=YES,
+        max_length=400)
     client_name_field = models.ForeignKey(
         User, related_name='client_name_weight', null=True,
         on_delete=models.SET_NULL)
@@ -138,7 +145,7 @@ class WeighBridge(TimeStampedModel, models.Model):
         _('To'), max_length=400, blank=True, null=True)
     first_weight = models.FloatField(
         _('First Weight'), max_length=400, blank=True, null=True)
-    second_name = models.CharField(
+    second_name = models.FloatField(
         _('Second Weight'), max_length=400, blank=True, null=True)
     net_weight = models.FloatField(
         _('Net Weight'), max_length=400, blank=True, null=True)
