@@ -14,6 +14,11 @@ TYPE_STATUSES = [
     ('Outbound', 'Outbound'),
 ]
 
+INBOUND_OUTBOUND = [
+    ('Yes', 'Yes'),
+    ('No', 'No')
+]
+
 STATUSES = [
     ('High', 'High'),
     ('Medium', 'Medium'),
@@ -119,10 +124,11 @@ class WeighBridge(TimeStampedModel, models.Model):
     entry_date = models.DateField(_('Entry Date'), blank=True, null=True)
     exit_time = models.TimeField(_('Exit Time'), blank=True, null=True)
     print_date = models.DateField(_('Print Date'), blank=True, null=True)
+
     _import = models.CharField(
-        _('Import'), max_length=400, blank=True, null=True)
+        _('Inbound'), max_length=400, blank=True, null=True)
     _export = models.CharField(
-        _('Export'), max_length=400, blank=True, null=True)
+        _('Outbound'), max_length=400, blank=True, null=True)
     client_name_field = models.ForeignKey(
         User, related_name='client_name_weight', null=True,
         on_delete=models.SET_NULL)
@@ -133,12 +139,12 @@ class WeighBridge(TimeStampedModel, models.Model):
     first_weight = models.FloatField(
         _('First Weight'), max_length=400, blank=True, null=True)
     second_name = models.CharField(
-        _('Second Name'), max_length=400, blank=True, null=True)
+        _('Second Weight'), max_length=400, blank=True, null=True)
     net_weight = models.FloatField(
         _('Net Weight'), max_length=400, blank=True, null=True)
-    status = models.CharField(_('Status'), max_length=100,
-                              choices=WEIGH_BRIDGE_STATUS,
-                              default=WEIGH_STATUS_DEFAULT, )
+    # status = models.CharField(_('Status'), max_length=100,
+    #                           choices=WEIGH_BRIDGE_STATUS,
+    #                           default=WEIGH_STATUS_DEFAULT, )
 
     def __str__(self):
         return f'{self.uuid}  {self.vehicle_number}'
@@ -302,6 +308,39 @@ class ProductStoreEntrance(TimeStampedModel, models.Model):
         return f'{self.id}'
 
 
+class WareHouse(TimeStampedModel, models.Model):
+
+    """WareHosue Model."""
+
+    name = models.CharField(
+        _('Ware House Name '), max_length=400, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Season(TimeStampedModel, models.Model):
+
+    """Season Model."""
+
+    name = models.CharField(
+        _('Season'), max_length=400, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Entity(TimeStampedModel, models.Model):
+
+    """Entity Model."""
+
+    name = models.CharField(
+        _('Entity'), max_length=200, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
 class HousingCertificateSearchModel(TimeStampedModel, models.Model):
     """HousingCertificate Model"""
 
@@ -311,12 +350,9 @@ class HousingCertificateSearchModel(TimeStampedModel, models.Model):
     product = models.ForeignKey(Product,
                                 related_name='product_hcm',
                                 null=True, on_delete=models.SET_NULL)
-    ware = models.CharField(
-        _('Ware house'), max_length=400, blank=True, null=True)
-    season = models.CharField(
-        _('Season'), max_length=400, blank=True, null=True)
-    entity = models.CharField(
-        _('Entity'), max_length=400, blank=True, null=True)
+    ware = models.ManyToManyField(WareHouse)
+    season = models.ManyToManyField(Season)
+    entity = models.ManyToManyField(Entity)
 
     def __str__(self):
         return f'{self.id}'

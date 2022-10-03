@@ -4,7 +4,8 @@ from import_export.admin import ImportExportMixin
 from django.utils.translation import gettext_lazy as _
 
 from prealert.models import PreAlert, WeighBridge, GuaranteedGoods, \
-    StoreEntrance, CarrierStoreEntrance, ProductStoreEntrance, ManagementByLot
+    StoreEntrance, CarrierStoreEntrance, ProductStoreEntrance, ManagementByLot, \
+    WareHouse, Season, Entity
 from prealert.resources import PreAlertCommonResourcesClass, \
     WeighBridgeCommonResourcesClass
 
@@ -33,8 +34,9 @@ class PreAlertAdmin(ImportExportMixin, admin.ModelAdmin):
 class WeighBridgeAdmin(ImportExportMixin, admin.ModelAdmin):
     list_display = ('id', 'print_date', 'vehicle_number', 'entry_date',
                     'transporter', 'exit_time',
-                    'vehicle_reg_num', 'trailer_reg_num', 'client_name_field',
-                    'commodity', 'status', 'user')
+                    'vehicle_reg_num', 'trailer_reg_num',
+                    'client_name_field',
+                    'commodity', 'user')
     search_fields = ('vehicle_number', 'transporter',)
     resource_class = WeighBridgeCommonResourcesClass
 
@@ -104,19 +106,32 @@ class ManagementByLotFilter(SimpleListFilter):
 
 
 class ManagementByLotAdmin(admin.ModelAdmin):
-    list_display = ('id', 'transaction_type',
-                    'product',
+    list_display = ('product',
                     'customer', 'batch_number',
                     'quantity', 'real_weight')
+
 
     def get_queryset(self, request):
         qs = super(ManagementByLotAdmin, self).get_queryset(request)
         customer = request.GET.get("customer")
         product = request.GET.get("product")
 
-        print('cus ', customer, ' prod ', product)
-        print(type(qs))
         return qs.filter(product__id=product, customer__id=customer)
+
+
+class WareHouseAdmin(admin.ModelAdmin):
+
+    list_display = ('name', )
+
+
+class SeasonAdmin(admin.ModelAdmin):
+
+    list_display = ('name', )
+
+
+class EntityAdmin(admin.ModelAdmin):
+
+    list_display = ('name', )
 
 
 admin.site.register(PreAlert, PreAlertAdmin)
@@ -124,3 +139,6 @@ admin.site.register(WeighBridge, WeighBridgeAdmin)
 admin.site.register(GuaranteedGoods, GuaranteedGoodsAdmin)
 admin.site.register(StoreEntrance, StoreEntranceAdmin)
 admin.site.register(ManagementByLot, ManagementByLotAdmin)
+admin.site.register(WareHouse, WareHouseAdmin)
+admin.site.register(Season, WareHouseAdmin)
+admin.site.register(Entity, EntityAdmin)
