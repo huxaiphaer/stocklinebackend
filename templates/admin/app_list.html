@@ -22,10 +22,10 @@
     </li>
     <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
       <a 
-        {% if '/prealert/prealert/' == request.path %} 
+        {% if '/admin/prealert/prealert/' == request.path %}
           class="active-link"
         {% endif %}
-        href="/prealert/prealert/"
+        href="/admin/prealert/prealert/"
         {% if '/admin/' in request.path|urlencode %} 
           aria-current="page"
         {% endif %} 
@@ -38,10 +38,10 @@
   </li>
   <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
     <a 
-      {% if '/prealert/weighbridge/' == request.path %} 
+      {% if '/admin/prealert/weighbridge/' == request.path %}
         class="active-link"
       {% endif %}
-      href="/prealert/weighbridge/"
+      href="/admin/prealert/weighbridge/"
       {% if '/admin/' in request.path|urlencode %} 
         aria-current="page"
       {% endif %} 
@@ -54,10 +54,10 @@
   </li>
   <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
     <a 
-      {% if '/prealert/guaranteedgoods/' == request.path %} 
+      {% if '/admin/prealert/guaranteedgoods/' == request.path %}
         class="active-link"
       {% endif %}
-      href="/prealert/guaranteedgoods/"
+      href="/admin/prealert/guaranteedgoods/"
       {% if '/prealert/guaranteedgoods/' == request.path|urlencode %} 
         aria-current="page"
       {% endif %} 
@@ -70,11 +70,11 @@
   </li>
   <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
     <a 
-      {% if '/prealert/storeentrance/' == request.path %} 
+      {% if '/admin/prealert/storeentrance/' == request.path %}
         class="active-link"
       {% endif %}
       href="/prealert/storeentrance/"
-      {% if '/prealert/storeentrance/' == request.path|urlencode %} 
+      {% if '/admin/prealert/storeentrance/' == request.path|urlencode %}
         aria-current="page"
       {% endif %} 
       class="py-2" 
@@ -140,8 +140,8 @@
         <span>{% translate 'Administration' %}</span>
       </summary> 
       {% for app in app_list %}
-      {% for model in app.models %}  
-      {% if model.name == 'Users' or model.name == 'Products' or model.name == 'Packaging' or model.name == 'Groups' or model.name == 'Customers'%}        
+      {% for model in app.models %}
+      {% if model.name == 'Users' or model.name == 'Products' or model.name == 'Packaging' or model.name == 'Groups' or model.name == 'Customers' or model.name == 'Ware houses' or model.name == 'Seasons' or model.name == 'Entitys' %}
         <li class="sidebar-list-item" style="list-style-type: none;border: none !important; margin-left: 5px;">
             {% if model.admin_url  %}
               <a 
