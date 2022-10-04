@@ -99,5 +99,27 @@
         required_val[i].innerHTML = required_val[i].innerHTML + " *"
     }
 
+
+    //Filter packaging by product.
+    const packaging = document.getElementById("id_packaging")
+    const product = document.getElementById("id_product")
+    function filter_packaging_by_product() {
+         let selectElement = document.querySelectorAll('[name=packaging]');
+         let optionNames = [...selectElement[0].options].map(o => o.text)
+
+        for (let i = 0; i < optionNames.length; i++) {
+
+            let  product_text = product.options[product.selectedIndex].text;
+            console.log("optionNames[i] ", optionNames[i])
+            if(optionNames[i].includes(product_text)) {
+                console.log(" yes  ssss")
+                packaging.selectedIndex = i
+            }
+        }
+
+    }
+    product.setAttribute( "onchange", "filter_packaging_by_product()" );
+
+
     </script>
 {% endblock %}
