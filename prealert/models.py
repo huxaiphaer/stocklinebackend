@@ -91,7 +91,7 @@ class PreAlert(TimeStampedModel, models.Model):
         ordering = ['-created']
 
     def __str__(self):
-        return f'{self.customer} {self.quantity} {self.user}'
+        return f'{self.id} {self.customer} {self.quantity} {self.user}'
 
     @property
     def calculated_weight(self):
@@ -152,7 +152,7 @@ class WeighBridge(TimeStampedModel, models.Model):
     #                           default=WEIGH_STATUS_DEFAULT, )
 
     def __str__(self):
-        return f'{self.uuid}  {self.vehicle_number}'
+        return f'{self.id}  {self.vehicle_number}'
 
 
 class GuaranteedGoods(TimeStampedModel, models.Model):
