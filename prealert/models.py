@@ -139,11 +139,11 @@ class WeighBridge(TimeStampedModel, models.Model):
     client_name_field = models.ForeignKey(
         User, related_name='client_name_weight', null=True,
         on_delete=models.SET_NULL)
-    from_destination = CountryField()
-    to_destination = CountryField()
+    from_destination = CountryField(blank=True, max_length=300, default='FR')
+    to_destination = CountryField(blank=True, max_length=300, default='FR')
     first_weight = models.FloatField(
         _('First Weight'), max_length=400, blank=True, null=True)
-    second_name = models.FloatField(
+    second_weight = models.FloatField(
         _('Second Weight'), max_length=400, blank=True, null=True)
     net_weight = models.FloatField(
         _('Net Weight'), max_length=400, blank=True, null=True)
