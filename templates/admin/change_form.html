@@ -92,5 +92,12 @@
          read_only_field[0].innerText = final_weight
     });
 
+
+    // Add stars to fields
+    let required_val = document.getElementsByClassName("required");
+    for (let i = 0; i < required_val.length; i++) {
+        required_val[i].innerHTML = required_val[i].innerHTML + " *"
+    }
+
     </script>
 {% endblock %}
