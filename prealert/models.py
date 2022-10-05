@@ -195,10 +195,6 @@ class GuaranteedGoods(TimeStampedModel, models.Model):
 class StoreEntrance(TimeStampedModel, models.Model):
     """Store Entrance"""
 
-    transaction_type = models.CharField(_('Transaction Type'),
-                                        max_length=100,
-                                        choices=TRANSACTION_TYPES,
-                                        default=DEFAULT_TRANSACTION_TYPE, )
     product = models.ForeignKey(Product, related_name='product_store_entrance',
                                 null=True, on_delete=models.SET_NULL)
     country = CountryField()
@@ -210,8 +206,6 @@ class StoreEntrance(TimeStampedModel, models.Model):
     flux = models.CharField(_('Flux'), max_length=100,
                             choices=STORE_ENTRANCE_STATUS,
                             default=WEIGH_STATUS_DEFAULT)
-    type_of_management = models.CharField(
-        _('Type of Management'), max_length=400, blank=True, null=True)
     store = models.CharField(
         _('Store'), max_length=400, blank=True, null=True)
     country_of_origin = CountryField()
