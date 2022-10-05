@@ -136,6 +136,9 @@ class WeighBridge(TimeStampedModel, models.Model):
         choices=INBOUND_OUTBOUND,
         default=YES,
         max_length=400)
+    customer = models.ForeignKey(
+        Customer, related_name='customer_name_weigh_bridge', null=True,
+        on_delete=models.SET_NULL)
     client_name_field = models.ForeignKey(
         User, related_name='client_name_weight', null=True,
         on_delete=models.SET_NULL)
