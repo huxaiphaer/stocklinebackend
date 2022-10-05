@@ -32,13 +32,15 @@ class PreAlertAdmin(ImportExportMixin, admin.ModelAdmin):
 
 
 class WeighBridgeAdmin(ImportExportMixin, admin.ModelAdmin):
+
     list_display = ('id', 'print_date', 'vehicle_number', 'entry_date',
                     'transporter', 'exit_time',
                     'vehicle_reg_num', 'trailer_reg_num',
-                    'client_name_field',
+                    'customer',
                     'commodity', 'user')
     search_fields = ('vehicle_number', 'transporter',)
     resource_class = WeighBridgeCommonResourcesClass
+    exclude = ('client_name_field', )
 
 
 class GuaranteedGoodsAdmin(admin.ModelAdmin):
