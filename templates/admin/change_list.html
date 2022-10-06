@@ -92,9 +92,9 @@
         border : none !important;
         width:fit-content;
       }
-      #changelist-form .results, .changelist-form-container {
+      #changelist-form .results {
         overflow-x: auto;
-        width: 100%;
+        width: 80%;
        }
       tr{
         height: 48px;
@@ -103,48 +103,14 @@
         background-color: rgb(245,245,245) !important;
         color: black;
       }
-      table {
-        box-shadow: rgb(255, 255, 255) 0px 0px 0px 0px,
-         rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, 
-         rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, 
-         rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-     }
-      thead th {
-        background-color:#E0E0E0;
-        color:#888988;
-      }
-      table thead th .text a {
-        display: block;
-        cursor: pointer;
-        padding: 8px 10px;      
-        color:#888988 !important;
-        text-decoration: none;
-      }
-      table thead th .text a:focus, table thead th .text a:hover {
-        background-color:#E0E0E0;
-      }
       tbody tr:nth-child(odd){
         background-color: white !important;
         color: black;
       }
-      .field-id > a {
-        color:black;
-        text-decoration: none;
+      tbody th{
+        background-color: rgb(245,245,245) !important;
+        color: #fff;
       }
-      #changelist .paginator {
-        color: black !important;
-        border: none !important;
-        background: white !important;
-        overflow: hidden;
-      }
-     .paginator {
-      border: none;
-      border-bottom-left-radius: 5px;
-      border-bottom-right-radius: 5px
-     }
-     thead th.sorted {
-      background: #E0E0E0 !important;
-    }
     </style>
   </div>
 {% endblock %}
