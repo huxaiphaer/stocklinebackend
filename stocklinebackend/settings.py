@@ -109,21 +109,11 @@ WSGI_APPLICATION = 'stocklinebackend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DEBUG = True if os.getenv('DEBUG') == 'True' else False
-
-if DEBUG == True:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }  
-else:
-    DATABASES = {
-        'default': dj_database_url.config(
+DATABASES = {
+    'default': dj_database_url.config(
         conn_max_age=600, ssl_require=False,
         default=os.getenv('DATABASE_URL'))
-    }
+}
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
