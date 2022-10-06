@@ -146,12 +146,12 @@
          function calculate_weight() {
              let first_val = first_weight.value
              let second_val = second_weight.value
-             net_weight.value = parseInt(first_val) - parseInt(second_val)
+             net_weight.value = Math.abs(parseInt(first_val) - parseInt(second_val))
 
              if (second_val > first_val){
                  import_field.selectedIndex = 1
                  export_field.selectedIndex = 0
-             } else {
+             } else if (first_val > second_val) {
                  import_field.selectedIndex = 0
                  export_field.selectedIndex = 1
              }
