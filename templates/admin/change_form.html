@@ -34,51 +34,57 @@
 {% endblock %}
 <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}{% if form_url %}action="{{ form_url }}" {% endif %}method="post" id="{{ opts.model_name }}_form" novalidate>{% csrf_token %}{% block form_top %}{% endblock %}
 <div>
-{% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="1">{% endif %}
-{% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}">{% endif %}
-{% if save_on_top %}{% block submit_buttons_top %}{% submit_row %}{% endblock %}{% endif %}
-{% if errors %}
-    <p class="errornote">
-    {% if errors|length == 1 %}{% translate "Please correct the error below." %}{% else %}{% translate "Please correct the errors below." %}{% endif %}
-    </p>
-    {{ adminform.form.non_field_errors }}
-{% endif %}
+    {% if request.path == '/prealert/guaranteedgoods/add/' %}
+    {% else %}
+        {% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="1">{% endif %}
+        {% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}">{% endif %}
+        {% if save_on_top %}{% block submit_buttons_top %}{% submit_row %}{% endblock %}{% endif %}
+        {% if errors %}
+            <p class="errornote">
+            {% if errors|length == 1 %}{% translate "Please correct the error below." %}{% else %}{% translate "Please correct the errors below." %}{% endif %}
+            </p>
+            {{ adminform.form.non_field_errors }}
+        {% endif %}
 
-{% block field_sets %}
-{% for fieldset in adminform %}
-  {% include "admin/includes/fieldset.html" %}
-{% endfor %}
-{% endblock %}
+        {% block field_sets %}
+        {% for fieldset in adminform %}
+          {% include "admin/includes/fieldset.html" %}
+        {% endfor %}
+        {% endblock %}
 
-{% block after_field_sets %}{% endblock %}
+        {% block after_field_sets %}{% endblock %}
 
-{% block inline_field_sets %}
-{% for inline_admin_formset in inline_admin_formsets %}
-    {% include inline_admin_formset.opts.template %}
-{% endfor %}
-{% endblock %}
+        {% block inline_field_sets %}
+        {% for inline_admin_formset in inline_admin_formsets %}
+            {% include inline_admin_formset.opts.template %}
+        {% endfor %}
+        {% endblock %}
 
-{% block after_related_objects %}{% endblock %}
+        {% block after_related_objects %}{% endblock %}
 
-{% block submit_buttons_bottom %}{% submit_row %}{% endblock %}
+        {% block submit_buttons_bottom %}{% submit_row %}{% endblock %}
 
-{% block admin_change_form_document_ready %}
-    <script id="django-admin-form-add-constants"
-            src="{% static 'admin/js/change_form.js' %}"
-            {% if adminform and add %}
-                data-model-name="{{ opts.model_name }}"
-            {% endif %}
-            async>
-    </script>
-{% endblock %}
+        {% block admin_change_form_document_ready %}
+            <script id="django-admin-form-add-constants"
+                    src="{% static 'admin/js/change_form.js' %}"
+                    {% if adminform and add %}
+                        data-model-name="{{ opts.model_name }}"
+                    {% endif %}
+                    async>
+            </script>
+        {% endblock %}
 
-{# JavaScript for prepopulated fields #}
-{% prepopulated_fields_js %}
-
+        {# JavaScript for prepopulated fields #}
+        {% prepopulated_fields_js %}
+    {% endif %}
 </div>
 </form></div>
     <script>
-    quantity_field = document.getElementById("id_quantity");
+
+
+    if(window.location.href.split('/')[5] === 'prealert') {
+
+        quantity_field = document.getElementById("id_quantity");
     quantity_field.addEventListener('input', e => {
          const quantity = document.getElementById("id_quantity").value;
          const sel = document.getElementById("id_packaging");
@@ -88,6 +94,73 @@
          const read_only_field = document.getElementsByClassName('readonly')
          read_only_field[0].innerText = final_weight
     });
+
+
+    // Add stars to fields
+    let required_val = document.getElementsByClassName("required");
+    for (let i = 0; i < required_val.length; i++) {
+        required_val[i].innerHTML = required_val[i].innerHTML + " *"
+    }
+
+
+    //Filter packaging by product.
+    const packaging = document.getElementById("id_packaging")
+    const product = document.getElementById("id_product")
+    function filter_packaging_by_product() {
+         let selectElement = document.querySelectorAll('[name=packaging]');
+         let optionNames = [...selectElement[0].options].map(o => o.text)
+
+        for (let i = 0; i < optionNames.length; i++) {
+
+            let  product_text = product.options[product.selectedIndex].text;
+            console.log("optionNames[i] ", optionNames[i])
+            if(optionNames[i].includes(product_text)) {
+                console.log(" yes  ssss")
+                packaging.selectedIndex = i
+            }
+        }
+
+    }
+    product.setAttribute( "onchange", "filter_packaging_by_product()" );
+
+    }
+
+    else if(window.location.href.split('/')[5] === 'weighbridge') {
+
+        // Weighbridge logic
+
+         // Add stars to fields
+         let required_val = document.getElementsByClassName("required");
+         for (let i = 0; i < required_val.length; i++) {
+            required_val[i].innerHTML = required_val[i].innerHTML + " *"
+         }
+
+         const first_weight = document.getElementById("id_first_weight")
+         const second_weight = document.getElementById("id_second_weight")
+         const net_weight = document.getElementById("id_net_weight")
+
+         const import_field = document.getElementById("id__import")
+         const export_field = document.getElementById("id__export")
+
+
+         function calculate_weight() {
+             let first_val = first_weight.value
+             let second_val = second_weight.value
+             net_weight.value = parseInt(first_val) - parseInt(second_val)
+
+             if (second_val > first_val){
+                 import_field.selectedIndex = 1
+                 export_field.selectedIndex = 0
+             } else {
+                 import_field.selectedIndex = 0
+                 export_field.selectedIndex = 1
+             }
+         }
+         first_weight.setAttribute( "onkeyup", "calculate_weight()" );
+         second_weight.setAttribute( "onkeyup", "calculate_weight()" );
+
+    }
+
 
     </script>
 {% endblock %}

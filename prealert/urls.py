@@ -12,6 +12,10 @@ urlpatterns = [
          name='holding-certificate'),
     path('holding-certificate/<int:id>/', views.GuaranteedGoodsView.as_view(),
          name='holding-certificate'),
+    path('search_holding_certificate/',
+         views.search_housing_certificate_view,
+         name='search-hc'),
+    path('test/', views.results, name='test'),
     path('prealert/<int:id>/',
          views.PreAlertDetail.as_view(), name='prealert-details'),
 ]

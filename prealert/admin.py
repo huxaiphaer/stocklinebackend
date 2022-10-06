@@ -1,8 +1,11 @@
 from django.contrib import admin
+from django.contrib.admin import SimpleListFilter
 from import_export.admin import ImportExportMixin
+from django.utils.translation import gettext_lazy as _
 
 from prealert.models import PreAlert, WeighBridge, GuaranteedGoods, \
-    StoreEntrance, CarrierStoreEntrance, ProductStoreEntrance
+    StoreEntrance, CarrierStoreEntrance, ProductStoreEntrance, ManagementByLot, \
+    WareHouse, Season, Entity
 from prealert.resources import PreAlertCommonResourcesClass, \
     WeighBridgeCommonResourcesClass
 
@@ -32,10 +35,12 @@ class WeighBridgeAdmin(ImportExportMixin, admin.ModelAdmin):
 
     list_display = ('id', 'print_date', 'vehicle_number', 'entry_date',
                     'transporter', 'exit_time',
-                    'vehicle_reg_num', 'trailer_reg_num', 'client_name_field',
-                    'commodity', 'status', 'user')
+                    'vehicle_reg_num', 'trailer_reg_num',
+                    'customer',
+                    'commodity', 'user')
     search_fields = ('vehicle_number', 'transporter',)
     resource_class = WeighBridgeCommonResourcesClass
+    exclude = ('client_name_field', )
 
 
 class GuaranteedGoodsAdmin(admin.ModelAdmin):
@@ -73,18 +78,68 @@ class ProductStoreEntranceAdmin(admin.StackedInline):
 
 
 class StoreEntranceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'transaction_type', 'product', 'country',
+    list_display = ('id', 'product', 'country',
                     'client_name_field',
                     'flux', 'store', 'po_number', 'shipment_number',
                     'quantity', 'user', 'packaging')
-    search_fields = ('transaction_type', 'product',)
+    search_fields = ('product',)
     inlines = [
         CarrierStoreEntranceAdmin,
         ProductStoreEntranceAdmin
     ]
 
 
+class ManagementByLotFilter(SimpleListFilter):
+
+    title = _('Management by Lot')
+
+    parameter_name = 'lot'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('filtered', _('filtered')),
+        )
+
+    def queryset(self, request, queryset):
+        print(dir(request))
+        print(request.GET.get('customer'))
+        if self.value() == 'filtered':
+            return queryset.filter(product__id=1, customer__id=1)
+
+
+class ManagementByLotAdmin(admin.ModelAdmin):
+    list_display = ('product',
+                    'customer', 'batch_number',
+                    'quantity', 'real_weight')
+
+
+    def get_queryset(self, request):
+        qs = super(ManagementByLotAdmin, self).get_queryset(request)
+        customer = request.GET.get("customer")
+        product = request.GET.get("product")
+
+        return qs.filter(product__id=product, customer__id=customer)
+
+
+class WareHouseAdmin(admin.ModelAdmin):
+
+    list_display = ('name', )
+
+
+class SeasonAdmin(admin.ModelAdmin):
+
+    list_display = ('name', )
+
+
+class EntityAdmin(admin.ModelAdmin):
+    list_display = ('name', )
+
+
 admin.site.register(PreAlert, PreAlertAdmin)
 admin.site.register(WeighBridge, WeighBridgeAdmin)
 admin.site.register(GuaranteedGoods, GuaranteedGoodsAdmin)
 admin.site.register(StoreEntrance, StoreEntranceAdmin)
+admin.site.register(ManagementByLot, ManagementByLotAdmin)
+admin.site.register(WareHouse, WareHouseAdmin)
+admin.site.register(Season, WareHouseAdmin)
+admin.site.register(Entity, EntityAdmin)

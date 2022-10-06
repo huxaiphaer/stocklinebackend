@@ -1,6 +1,5 @@
 import uuid as uuid
 
-from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
@@ -10,10 +9,16 @@ from django_extensions.db.models import TimeStampedModel
 from customer.models import Product, Packaging, Customer
 from users.models import User
 
-
 TYPE_STATUSES = [
     ('Inbound', 'Inbound'),
     ('Outbound', 'Outbound'),
+]
+
+YES = 'Yes'
+
+INBOUND_OUTBOUND = [
+    ('Yes', 'Yes'),
+    ('No', 'No')
 ]
 
 STATUSES = [
@@ -86,7 +91,7 @@ class PreAlert(TimeStampedModel, models.Model):
         ordering = ['-created']
 
     def __str__(self):
-        return f'{self.customer} {self.quantity} {self.user}'
+        return f'{self.id} {self.customer} {self.quantity} {self.user}'
 
     @property
     def calculated_weight(self):
@@ -122,28 +127,35 @@ class WeighBridge(TimeStampedModel, models.Model):
     exit_time = models.TimeField(_('Exit Time'), blank=True, null=True)
     print_date = models.DateField(_('Print Date'), blank=True, null=True)
     _import = models.CharField(
-        _('Import'), max_length=400, blank=True, null=True)
+        _('Inbound'),
+        choices=INBOUND_OUTBOUND,
+        default=YES,
+        max_length=400,)
     _export = models.CharField(
-        _('Export'), max_length=400, blank=True, null=True)
+        _('Outbound'),
+        choices=INBOUND_OUTBOUND,
+        default=YES,
+        max_length=400)
+    customer = models.ForeignKey(
+        Customer, related_name='customer_name_weigh_bridge', null=True,
+        on_delete=models.SET_NULL)
     client_name_field = models.ForeignKey(
         User, related_name='client_name_weight', null=True,
         on_delete=models.SET_NULL)
-    from_destination = models.CharField(
-        _('From'), max_length=400, blank=True, null=True)
-    to_destination = models.CharField(
-        _('To'), max_length=400, blank=True, null=True)
+    from_destination = CountryField(blank=True, max_length=300, default='FR')
+    to_destination = CountryField(blank=True, max_length=300, default='FR')
     first_weight = models.FloatField(
         _('First Weight'), max_length=400, blank=True, null=True)
-    second_name = models.CharField(
-        _('Second Name'), max_length=400, blank=True, null=True)
+    second_weight = models.FloatField(
+        _('Second Weight'), max_length=400, blank=True, null=True)
     net_weight = models.FloatField(
         _('Net Weight'), max_length=400, blank=True, null=True)
-    status = models.CharField(_('Status'), max_length=100,
-                              choices=WEIGH_BRIDGE_STATUS,
-                              default=WEIGH_STATUS_DEFAULT, )
+    # status = models.CharField(_('Status'), max_length=100,
+    #                           choices=WEIGH_BRIDGE_STATUS,
+    #                           default=WEIGH_STATUS_DEFAULT, )
 
     def __str__(self):
-        return f'{self.uuid}  {self.vehicle_number}'
+        return f'{self.id}  {self.vehicle_number}'
 
 
 class GuaranteedGoods(TimeStampedModel, models.Model):
@@ -181,13 +193,8 @@ class GuaranteedGoods(TimeStampedModel, models.Model):
 
 
 class StoreEntrance(TimeStampedModel, models.Model):
-
     """Store Entrance"""
 
-    transaction_type = models.CharField(_('Transaction Type'),
-                                        max_length=100,
-                                        choices=TRANSACTION_TYPES,
-                                        default=DEFAULT_TRANSACTION_TYPE, )
     product = models.ForeignKey(Product, related_name='product_store_entrance',
                                 null=True, on_delete=models.SET_NULL)
     country = CountryField()
@@ -199,8 +206,6 @@ class StoreEntrance(TimeStampedModel, models.Model):
     flux = models.CharField(_('Flux'), max_length=100,
                             choices=STORE_ENTRANCE_STATUS,
                             default=WEIGH_STATUS_DEFAULT)
-    type_of_management = models.CharField(
-        _('Type of Management'), max_length=400, blank=True, null=True)
     store = models.CharField(
         _('Store'), max_length=400, blank=True, null=True)
     country_of_origin = CountryField()
@@ -235,7 +240,6 @@ class StoreEntrance(TimeStampedModel, models.Model):
 
 
 class CarrierStoreEntrance(TimeStampedModel, models.Model):
-
     """Store entrance carrier."""
 
     carrier_identifier = models.CharField(
@@ -270,7 +274,6 @@ class CarrierStoreEntrance(TimeStampedModel, models.Model):
 
 
 class ProductStoreEntrance(TimeStampedModel, models.Model):
-
     """Product Store Entrance"""
 
     purchase_order_number = models.CharField(
@@ -305,3 +308,92 @@ class ProductStoreEntrance(TimeStampedModel, models.Model):
 
     def __str__(self):
         return f'{self.id}'
+
+
+class WareHouse(TimeStampedModel, models.Model):
+
+    """WareHosue Model."""
+
+    name = models.CharField(
+        _('Ware House Name '), max_length=400, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Season(TimeStampedModel, models.Model):
+
+    """Season Model."""
+
+    name = models.CharField(
+        _('Season'), max_length=400, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Entity(TimeStampedModel, models.Model):
+
+    """Entity Model."""
+
+    name = models.CharField(
+        _('Entity'), max_length=200, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class HousingCertificateSearchModel(TimeStampedModel, models.Model):
+    """HousingCertificate Model"""
+
+    customer = models.ForeignKey(Customer,
+                                 related_name='customer_hcm',
+                                 null=True, on_delete=models.SET_NULL)
+    product = models.ForeignKey(Product,
+                                related_name='product_hcm',
+                                null=True, on_delete=models.SET_NULL)
+    ware = models.ManyToManyField(WareHouse)
+    season = models.ManyToManyField(Season)
+    entity = models.ManyToManyField(Entity)
+
+    def __str__(self):
+        return f'{self.id}'
+
+
+class ManagementByLot(TimeStampedModel, models.Model):
+    """Management by lot."""
+
+    transaction_type = models.CharField(_('Transaction Type'),
+                                        max_length=100,
+                                        choices=TRANSACTION_TYPES,
+                                        default=DEFAULT_TRANSACTION_TYPE, )
+    product = models.ForeignKey(Product, related_name='product_lot',
+                                null=True, on_delete=models.SET_NULL)
+    customer = models.ForeignKey(Customer, related_name='customer_lot',
+                                 null=True, on_delete=models.SET_NULL)
+    batch_number = models.CharField(_('Batch Number '),
+                                    max_length=400, blank=True, null=True)
+    quantity = models.FloatField(
+        _('Quantity'), blank=True, null=True, default=0.0)
+    packaging = models.ForeignKey(Packaging,
+                                  related_name='packaging_lot',
+                                  null=True, on_delete=models.SET_NULL)
+    real_weight = models.FloatField(
+        _('Real weight '), blank=True, null=True, default=0.0)
+    quantity_hc = models.FloatField(
+        _('Quantity HC'), blank=True, null=True, default=0.0)
+
+    def __str__(self):
+        return f'{self.id}'
+
+    @property
+    def theoretical_weight(self):
+        return self.packaging.quantity * self.quantity
+
+    @property
+    def theoretical_weight_hc(self):
+        return self.packaging.quantity * self.quantity_hc
+
+    @property
+    def real_weight_hc(self):
+        return 0
