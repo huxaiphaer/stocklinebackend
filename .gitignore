@@ -145,3 +145,4 @@ guio-web-d811934e762a.json
 .guio-web-d811934e762a.json
 *.json
 /stockline
+/db.sqlite3
