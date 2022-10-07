@@ -10,5 +10,16 @@
 {% if show_save_and_add_another %}<input type="submit" value="{% translate 'Save and add another' %}" name="_addanother">{% endif %}
 {% if show_save_and_continue %}<input type="submit" value="{% if can_change %}{% translate 'Save and continue editing' %}{% else %}{% translate 'Save and view' %}{% endif %}" name="_continue">{% endif %}
 {% if show_close %}<a href="{% url opts|admin_urlname:'changelist' %}" class="closelink">{% translate 'Close' %}</a>{% endif %}
+    <style>
+        .submit-row a.deletelink {
+            display: block;
+            background: var(--delete-button-bg);
+            border-radius: 4px;
+            padding: 10px 15px;
+            height: auto;
+            line-height: 15px;
+            color: var(--button-fg);
+        }
+    </style>
 {% endblock %}
 </div>
