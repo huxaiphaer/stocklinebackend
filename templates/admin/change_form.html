@@ -81,6 +81,18 @@
 </form></div>
     <script>
 
+    // Hide add. delete, edit buttons
+    let editButton = document.getElementsByClassName('related-widget-wrapper-link change-related')
+    let addButton = document.getElementsByClassName('related-widget-wrapper-link add-related')
+    let deleteButton = document.getElementsByClassName('related-widget-wrapper-link delete-related')
+    for (let i = 0; i < editButton.length; i++) {
+        editButton[i].style.visibility = 'hidden'
+        addButton[i].style.visibility = 'hidden'
+        deleteButton[i].style.visibility = 'hidden'
+    }
+
+
+
 
     if(window.location.href.split('/')[5] === 'prealert') {
 
