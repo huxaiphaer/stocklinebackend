@@ -123,6 +123,9 @@
             packageOptions.forEach((option, index) => {
                packaging.options[index].hidden = !option.includes(product_text) && !product_text.includes('---');
             })
+            packaging.selectedIndex = [...packaging.options].indexOf(
+                [...packaging.options].filter(option => !option.hidden)[0]
+            )
         }
 
         product.setAttribute( "onchange", "filter_packaging_by_product()" );
