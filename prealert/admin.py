@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
+from django.http import HttpResponse
 from import_export.admin import ImportExportMixin
 from django.utils.translation import gettext_lazy as _
 
@@ -8,9 +9,10 @@ from prealert.models import PreAlert, WeighBridge, GuaranteedGoods, \
     WareHouse, Season, Entity
 from prealert.resources import PreAlertCommonResourcesClass, \
     WeighBridgeCommonResourcesClass
+from prealert.utils import ExportCsvMixin
 
 
-class PreAlertAdmin(ImportExportMixin, admin.ModelAdmin):
+class PreAlertAdmin(ImportExportMixin, admin.ModelAdmin, ExportCsvMixin):
     list_display = ('id', 'customer', 'product',
                     'quantity', 'contract_number', 'from_or_origin',
                     'packaging', 'commentaries', 'type',
@@ -30,8 +32,10 @@ class PreAlertAdmin(ImportExportMixin, admin.ModelAdmin):
     search_fields = ('customer__customer_name', 'contract_number',)
     resource_class = PreAlertCommonResourcesClass
 
+    actions = ["export_as_csv"]
 
-class WeighBridgeAdmin(ImportExportMixin, admin.ModelAdmin):
+
+class WeighBridgeAdmin(ImportExportMixin, admin.ModelAdmin, ExportCsvMixin):
 
     list_display = ('id', 'print_date', 'vehicle_number', 'entry_date',
                     'transporter', 'exit_time',
@@ -41,6 +45,7 @@ class WeighBridgeAdmin(ImportExportMixin, admin.ModelAdmin):
     search_fields = ('vehicle_number', 'transporter',)
     resource_class = WeighBridgeCommonResourcesClass
     exclude = ('client_name_field', )
+    actions = ["export_as_csv"]
 
 
 class GuaranteedGoodsAdmin(admin.ModelAdmin):

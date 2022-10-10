@@ -12,6 +12,8 @@ class PreAlertCommonResourcesClass(resources.ModelResource):
                   'user__email', 'status', 'priority',)
 
 
+
+
 class WeighBridgeCommonResourcesClass(resources.ModelResource):
     class Meta:
         model = models.WeighBridge
