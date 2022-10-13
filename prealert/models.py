@@ -6,7 +6,7 @@ from django_countries.fields import CountryField
 
 from django_extensions.db.models import TimeStampedModel
 
-from customer.models import Product, Packaging, Customer
+from customer.models import Customer, Product, Packaging
 from users.models import User
 
 TYPE_STATUSES = [
@@ -50,6 +50,11 @@ TRANSACTION_TYPES = [
 ]
 
 DEFAULT_TRANSACTION_TYPE = 'Inbound'
+
+MANAGEMENT_TYPES = [
+    ('Kg', 'Kg'),
+    ('Tonnes', 'Tonnes'),
+]
 
 
 class PreAlert(TimeStampedModel, models.Model):
@@ -153,6 +158,9 @@ class WeighBridge(TimeStampedModel, models.Model):
     # status = models.CharField(_('Status'), max_length=100,
     #                           choices=WEIGH_BRIDGE_STATUS,
     #                           default=WEIGH_STATUS_DEFAULT, )
+    management_type = models.CharField(_('Measure Type'), max_length=100,
+                                       choices=MANAGEMENT_TYPES,
+                                       default='Kg', )
 
     def __str__(self):
         return f'{self.id}  {self.vehicle_number}'
@@ -311,7 +319,6 @@ class ProductStoreEntrance(TimeStampedModel, models.Model):
 
 
 class WareHouse(TimeStampedModel, models.Model):
-
     """WareHosue Model."""
 
     name = models.CharField(
@@ -321,8 +328,14 @@ class WareHouse(TimeStampedModel, models.Model):
         return self.name
 
 
-class Season(TimeStampedModel, models.Model):
+class AreaWareHouse(WareHouse):
+    """AreaWareHouse."""
 
+    def __str__(self):
+        return self.name
+
+
+class Season(TimeStampedModel, models.Model):
     """Season Model."""
 
     name = models.CharField(
@@ -333,7 +346,6 @@ class Season(TimeStampedModel, models.Model):
 
 
 class Entity(TimeStampedModel, models.Model):
-
     """Entity Model."""
 
     name = models.CharField(
@@ -359,6 +371,16 @@ class HousingCertificateSearchModel(TimeStampedModel, models.Model):
     def __str__(self):
         return f'{self.id}'
 
+
+class Factories(TimeStampedModel, models.Model):
+    """Factories."""
+    description = models.TextField(_('Description'), blank=True, null=True)
+    product = models.ForeignKey(
+        Product, related_name='product_factories',
+        null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.description
 
 class ManagementByLot(TimeStampedModel, models.Model):
     """Management by lot."""
