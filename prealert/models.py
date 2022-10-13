@@ -1,3 +1,4 @@
+import datetime
 import uuid as uuid
 
 from django.db import models
@@ -324,6 +325,7 @@ class WareHouse(TimeStampedModel, models.Model):
     name = models.CharField(
         _('Ware House Name '), max_length=400, blank=True, null=True)
 
+
     def __str__(self):
         return self.name
 
@@ -335,14 +337,25 @@ class AreaWareHouse(WareHouse):
         return self.name
 
 
+YEAR_CHOICES = []
+for r in range(1980, (datetime.datetime.now().year+1)):
+    YEAR_CHOICES.append((r, r))
+
+
 class Season(TimeStampedModel, models.Model):
     """Season Model."""
 
-    name = models.CharField(
-        _('Season'), max_length=400, blank=True, null=True)
+    description = models.CharField(
+        _('Description'), max_length=400, blank=True, null=True)
+    year = models.IntegerField(
+        _('Year'), choices=YEAR_CHOICES, default=datetime.datetime.now().year)
+
+    product = models.ForeignKey(Product,
+                                related_name='product_season',
+                                null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return self.name
+        return self.description
 
 
 class Entity(TimeStampedModel, models.Model):
@@ -381,6 +394,7 @@ class Factories(TimeStampedModel, models.Model):
 
     def __str__(self):
         return self.description
+
 
 class ManagementByLot(TimeStampedModel, models.Model):
     """Management by lot."""

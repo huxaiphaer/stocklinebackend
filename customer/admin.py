@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from customer.models import Customer, Product, Packaging
+from customer.models import Customer, Product, Packaging, Transport
 
 
 class CustomerAdmin(admin.ModelAdmin):
@@ -16,6 +16,11 @@ class PackagingAdmin(admin.ModelAdmin):
                     'packaging_type', 'quantity')
 
 
+class TransportAdmin(admin.ModelAdmin):
+    list_display = ('description', 'phone', 'email', 'contact',)
+
+
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Packaging, PackagingAdmin)
+admin.site.register(Transport, TransportAdmin)

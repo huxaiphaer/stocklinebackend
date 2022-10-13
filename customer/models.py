@@ -4,7 +4,6 @@ from django.utils.translation import gettext_lazy as _
 
 from django_extensions.db.models import TimeStampedModel
 
-
 MANAGEMENT_TYPES = [
     ('Mass', 'Mass'),
     ('Lot', 'Lot'),
@@ -25,6 +24,9 @@ class Product(TimeStampedModel, models.Model):
     management_type = models.CharField(_('Type'), max_length=100,
                                        choices=MANAGEMENT_TYPES,
                                        default=DEFAULT_TYPE, )
+    ware_house = models.ForeignKey('prealert.Entity',
+                                   related_name='ware_house_customer',
+                                   null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f'{self.product_name}'
@@ -41,6 +43,7 @@ class Customer(TimeStampedModel, models.Model):
     ware_house = models.ForeignKey('prealert.WareHouse',
                                    related_name='ware_house_customer',
                                    null=True, on_delete=models.SET_NULL)
+
     def __str__(self):
         """Return customer name."""
         return f'{self.customer_name}'
@@ -62,3 +65,17 @@ class Packaging(TimeStampedModel, models.Model):
 
     def __str__(self):
         return f'{self.packaging_name} {self.packaging_type} {self.quantity}'
+
+
+class Transport(TimeStampedModel, models.Model):
+    """Transporter."""
+    description = models.TextField(_('Description'),
+                                   blank=True, null=True)
+    phone = models.CharField(
+        _('Phone'), max_length=100, null=True, blank=True)
+    email = models.EmailField(_('Email'))
+    contact = models.CharField(
+        _('Contact'), max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return self.email
