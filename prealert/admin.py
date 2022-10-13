@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from customer.models import Transport
 from prealert.models import PreAlert, WeighBridge, GuaranteedGoods, \
     StoreEntrance, CarrierStoreEntrance, ProductStoreEntrance, ManagementByLot, \
-    WareHouse, Season, Entity
+    WareHouse, Season, Entity, Factories
 from prealert.resources import PreAlertCommonResourcesClass, \
     WeighBridgeCommonResourcesClass
 from prealert.utils import ExportCsvMixin
@@ -141,6 +141,10 @@ class EntityAdmin(admin.ModelAdmin):
     list_display = ('name', )
 
 
+class FactoriesAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(PreAlert, PreAlertAdmin)
 admin.site.register(WeighBridge, WeighBridgeAdmin)
 admin.site.register(GuaranteedGoods, GuaranteedGoodsAdmin)
@@ -149,3 +153,4 @@ admin.site.register(ManagementByLot, ManagementByLotAdmin)
 admin.site.register(WareHouse, WareHouseAdmin)
 admin.site.register(Season, SeasonAdmin)
 admin.site.register(Entity, EntityAdmin)
+admin.site.register(Factories, FactoriesAdmin)

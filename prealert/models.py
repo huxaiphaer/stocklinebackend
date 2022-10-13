@@ -367,6 +367,10 @@ class Entity(TimeStampedModel, models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'Entity'
+        verbose_name_plural = 'Entities'
+
 
 class HousingCertificateSearchModel(TimeStampedModel, models.Model):
     """HousingCertificate Model"""
@@ -394,6 +398,10 @@ class Factories(TimeStampedModel, models.Model):
 
     def __str__(self):
         return self.description
+
+    class Meta:
+        verbose_name = 'Factory'
+        verbose_name_plural = 'Factories'
 
 
 class ManagementByLot(TimeStampedModel, models.Model):
