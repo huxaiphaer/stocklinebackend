@@ -78,4 +78,9 @@ class Transport(TimeStampedModel, models.Model):
         _('Contact'), max_length=100, null=True, blank=True)
 
     def __str__(self):
+
         return self.email
+
+    class Meta:
+        verbose_name = 'Transporter'
+        verbose_name_plural = 'Transporters'
