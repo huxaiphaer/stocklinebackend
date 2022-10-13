@@ -5,18 +5,12 @@ from django.utils.translation import gettext_lazy as _
 from django_extensions.db.models import TimeStampedModel
 
 
-class Customer(TimeStampedModel, models.Model):
-    """Customer"""
-    uuid = models.UUIDField(unique=True, max_length=500,
-                            default=uuid.uuid4,
-                            editable=False,
-                            db_index=True, blank=False, null=False)
-    customer_name = models.CharField(_('Customer Name'), max_length=400,
-                                     blank=True, null=True)
+MANAGEMENT_TYPES = [
+    ('Mass', 'Mass'),
+    ('Lot', 'Lot'),
+]
 
-    def __str__(self):
-        """Return customer name."""
-        return f'{self.customer_name}'
+DEFAULT_TYPE = 'Mass'
 
 
 class Product(TimeStampedModel, models.Model):
@@ -28,9 +22,28 @@ class Product(TimeStampedModel, models.Model):
                             db_index=True, blank=False, null=False)
     product_name = models.CharField(_('Product Name'), max_length=400,
                                     blank=True, null=True)
+    management_type = models.CharField(_('Type'), max_length=100,
+                                       choices=MANAGEMENT_TYPES,
+                                       default=DEFAULT_TYPE, )
 
     def __str__(self):
         return f'{self.product_name}'
+
+
+class Customer(TimeStampedModel, models.Model):
+    """Customer"""
+    uuid = models.UUIDField(unique=True, max_length=500,
+                            default=uuid.uuid4,
+                            editable=False,
+                            db_index=True, blank=False, null=False)
+    customer_name = models.CharField(_('Customer Name'), max_length=400,
+                                     blank=True, null=True)
+    ware_house = models.ForeignKey('prealert.WareHouse',
+                                   related_name='ware_house_customer',
+                                   null=True, on_delete=models.SET_NULL)
+    def __str__(self):
+        """Return customer name."""
+        return f'{self.customer_name}'
 
 
 class Packaging(TimeStampedModel, models.Model):
