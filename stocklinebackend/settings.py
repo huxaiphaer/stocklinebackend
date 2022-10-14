@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'admin_searchable_dropdown',
     'import_export',
+    'nested_inline',
 
     # apps
     'users',
