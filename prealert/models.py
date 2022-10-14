@@ -310,9 +310,13 @@ class ProductStoreEntrance(TimeStampedModel, models.Model):
         _('Zone warehouse'), max_length=400, blank=True, null=True)
     product_comments = models.CharField(
         _('Product Comments'), max_length=400, blank=True, null=True)
-    store_entrance = models.ForeignKey(
-        StoreEntrance,
-        related_name='store_entrance_entrance',
+    # store_entrance = models.ForeignKey(
+    #     StoreEntrance,
+    #     related_name='store_entrance_entrance',
+    #     null=True, on_delete=models.SET_NULL)
+    carrier_store_entrance = models.ForeignKey(
+        'CarrierStoreEntrance',
+        related_name='carrier_store_entrance',
         null=True, on_delete=models.SET_NULL)
 
     def __str__(self):

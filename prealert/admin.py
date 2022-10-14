@@ -10,6 +10,7 @@ from prealert.models import PreAlert, WeighBridge, GuaranteedGoods, \
     WareHouse, Season, Entity, Factories
 from prealert.resources import PreAlertCommonResourcesClass, \
     WeighBridgeCommonResourcesClass
+from nested_inline.admin import NestedStackedInline, NestedModelAdmin
 from prealert.utils import ExportCsvMixin
 
 
@@ -58,7 +59,20 @@ class GuaranteedGoodsAdmin(admin.ModelAdmin):
     search_fields = ('batch_number', 'quantity',)
 
 
-class CarrierStoreEntranceAdmin(admin.StackedInline):
+class ProductStoreEntranceAdmin(NestedStackedInline):
+    model = ProductStoreEntrance
+    list_display = ('id', 'purchase_order_number',
+                    'shipment_number',
+                    'batch_number',
+                    'compliance',
+                    'amount', 'grade', 'mark', 'theoretical_weight',
+                    'packaging', 'theoretical_weight', 'actual_weight',
+                    'zone_warehouse', 'store_entrance',
+                    'product_comments')
+    extra = 1
+
+
+class CarrierStoreEntranceAdmin(NestedStackedInline):
     model = CarrierStoreEntrance
     list_display = ('id', 'carrier_identifier', 'container_number',
                     'registration_number',
@@ -68,22 +82,10 @@ class CarrierStoreEntranceAdmin(admin.StackedInline):
                     )
     search_fields = ('carrier_identifier', 'container_number',)
     extra = 1
+    inlines = [ProductStoreEntranceAdmin, ]
 
 
-class ProductStoreEntranceAdmin(admin.StackedInline):
-    model = ProductStoreEntrance
-    list_display = ('id', 'purchase_order_number',
-                    'shipment_number',
-                    'batch_number',
-                    'compliance',
-                    'amount', 'grade', 'mark', 'theoretical_weight',
-                    'packaging', 'theoretical_weight', 'actual_weight',
-                    'zone_warehouse',
-                    'product_comments')
-    extra = 1
-
-
-class StoreEntranceAdmin(admin.ModelAdmin):
+class StoreEntranceAdmin(NestedModelAdmin):
     list_display = ('id', 'product', 'country',
                     'client_name_field',
                     'flux', 'store', 'po_number', 'shipment_number',
@@ -91,7 +93,6 @@ class StoreEntranceAdmin(admin.ModelAdmin):
     search_fields = ('product',)
     inlines = [
         CarrierStoreEntranceAdmin,
-        ProductStoreEntranceAdmin
     ]
 
 
@@ -117,7 +118,6 @@ class ManagementByLotAdmin(admin.ModelAdmin):
     list_display = ('product',
                     'customer', 'batch_number',
                     'quantity', 'real_weight')
-
 
     def get_queryset(self, request):
         qs = super(ManagementByLotAdmin, self).get_queryset(request)

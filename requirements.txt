@@ -12,6 +12,8 @@ django-countries==7.3.2
 django-extensions==3.1.5
 django-import-export==2.9.0
 django-jazzmin==2.5.0
+django-nested-admin==3.4.0
+django-nested-inline==0.4.5
 django-shell-plus==1.1.7
 django-showurls==1.0.1
 djangorestframework==3.13.1
@@ -34,9 +36,11 @@ pytest-cov==3.0.0
 pytest-django==4.5.2
 python-dotenv==0.20.0
 python-environ==0.4.54
+python-monkey-business==1.0.0
 pytz==2022.1
 PyYAML==6.0
 serializers==0.2.4
+six==1.16.0
 sqlparse==0.4.2
 tablib==3.2.1
 tomli==2.0.1
