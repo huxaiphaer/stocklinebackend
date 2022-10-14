@@ -142,7 +142,7 @@ class EntityAdmin(admin.ModelAdmin):
 
 
 class FactoriesAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('description', 'product',)
 
 
 admin.site.register(PreAlert, PreAlertAdmin)
