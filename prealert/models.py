@@ -248,6 +248,16 @@ class StoreEntrance(TimeStampedModel, models.Model):
         verbose_name_plural = 'Store Entrance'
 
 
+class StoreOutlet(StoreEntrance):
+
+    def __str__(self):
+        return f'{self.id}'
+
+    class Meta:
+        verbose_name = 'Store outlet'
+        verbose_name_plural = 'Store outlet'
+
+
 class CarrierStoreEntrance(TimeStampedModel, models.Model):
     """Store entrance carrier."""
 
