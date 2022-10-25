@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from customer.models import Transport
 from prealert.models import PreAlert, WeighBridge, GuaranteedGoods, \
     StoreEntrance, CarrierStoreEntrance, ProductStoreEntrance, ManagementByLot, \
-    WareHouse, Season, Entity, Factories
+    WareHouse, Season, Entity, Factories, StoreOutlet
 from prealert.resources import PreAlertCommonResourcesClass, \
     WeighBridgeCommonResourcesClass
 from nested_inline.admin import NestedStackedInline, NestedModelAdmin
@@ -96,6 +96,14 @@ class StoreEntranceAdmin(NestedModelAdmin):
     ]
 
 
+class StoreOutletAdmin(admin.ModelAdmin):
+    list_display = ('id', 'product', 'country',
+                    'client_name_field',
+                    'flux', 'store', 'po_number', 'shipment_number',
+                    'quantity', 'user', 'packaging')
+    search_fields = ('product',)
+
+
 class ManagementByLotFilter(SimpleListFilter):
 
     title = _('Management by Lot')
@@ -154,3 +162,4 @@ admin.site.register(WareHouse, WareHouseAdmin)
 admin.site.register(Season, SeasonAdmin)
 admin.site.register(Entity, EntityAdmin)
 admin.site.register(Factories, FactoriesAdmin)
+admin.site.register(StoreOutlet, StoreOutletAdmin)

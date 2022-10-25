@@ -73,8 +73,8 @@
       {% if '/admin/prealert/storeentrance/' == request.path %}
         class="active-link"
       {% endif %}
-      href="/admin/prealert/storeentrance/"
-      {% if '/admin/prealert/storeentrance/' == request.path|urlencode %}
+      href="/prealert/storeentrance/"
+      {% if '/prealert/storeentrance/' == request.path|urlencode %}
         aria-current="page"
       {% endif %} 
       class="py-2" 
@@ -102,11 +102,11 @@
   </li>
   <li class="sidebar-list-item" style="list-style-type: none;border: none !important;">
     <a 
-      {% if '#' == request.path %} 
+      {% if 'admin/prealert/storeoutlet/' == request.path %}
         class="active-link"
       {% endif %}
-      href="#"
-      {% if '#' == request.path|urlencode %} 
+      href="/admin/prealert/storeoutlet/"
+      {% if 'admin/prealert/storeoutlet/' == request.path|urlencode %}
         aria-current="page"
       {% endif %} 
       class="py-2" 
@@ -141,6 +141,7 @@
       </summary> 
       {% for app in app_list %}
       {% for model in app.models %}
+      {{ model.name }}
       {% if model.name == 'Users' or model.name == 'Products' or model.name == 'Packagings' or model.name == 'Groups' or model.name == 'Customers' or model.name == 'Ware houses' or model.name == 'Seasons' or model.name == 'Entities' or model.name == 'Transporters' or model.name == 'Factories'%}
         <li class="sidebar-list-item" style="list-style-type: none;border: none !important; margin-left: 5px;">
             {% if model.admin_url  %}
