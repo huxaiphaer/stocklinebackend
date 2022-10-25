@@ -1,6 +1,6 @@
 asgiref==3.5.0
 attrs==21.4.0
-# backports.zoneinfo==0.2.1
+backports.zoneinfo==0.2.1
 coverage==6.3.2
 defusedxml==0.7.1
 diff-match-patch==20200713
@@ -27,7 +27,7 @@ odfpy==1.4.1
 openpyxl==3.0.10
 packaging==21.3
 pluggy==1.0.0
-psycopg2-binary==2.9.1
+psycopg2==2.9.3
 py==1.11.0
 PyJWT==2.4.0
 pyparsing==3.0.7
