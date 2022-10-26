@@ -4,7 +4,7 @@ from customer.models import Customer, Product, Packaging, Transport
 
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('id', 'customer_name', 'ware_house', )
+    list_display = ('id', 'customer_name', )
 
 
 class ProductAdmin(admin.ModelAdmin):
