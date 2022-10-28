@@ -68,7 +68,7 @@ class Packaging(TimeStampedModel, models.Model):
     packaging_name = models.ForeignKey(Product,
                                        related_name='packaging_name_package',
                                        null=True, on_delete=models.SET_NULL)
-    packaging_type = models.ForeignKey(
+    package_type = models.ForeignKey(
         PackagingType, related_name='packaging_type_pack', null=True,
         on_delete=models.SET_NULL)
     quantity = models.FloatField(_('Quantity'),
