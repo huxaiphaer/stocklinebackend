@@ -5,6 +5,7 @@ from django.db import migrations
 
 def set_package_type(apps, schema_editor):
     Packaging = apps.get_model('customer', 'Packaging')
+    Packaging.objects.delete()
     PackagingType = apps.get_model('customer', 'PackagingType')
     packaging_type = PackagingType.objects.create(package_type="Bags")
 
