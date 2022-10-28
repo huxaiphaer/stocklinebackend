@@ -86,22 +86,18 @@ class CarrierStoreEntranceAdmin(NestedStackedInline):
 
 
 class StoreEntranceAdmin(NestedModelAdmin):
-    list_display = ('id', 'product', 'country',
+    list_display = ('id', 'product', 'country', 'packaging',
                     'client_name_field',
                     'flux', 'store', 'po_number', 'shipment_number',
-                    'quantity', 'user', 'packaging')
+                    'quantity', 'user')
     search_fields = ('product',)
     inlines = [
         CarrierStoreEntranceAdmin,
     ]
 
 
-class StoreOutletAdmin(admin.ModelAdmin):
-    list_display = ('id', 'product', 'country',
-                    'client_name_field',
-                    'flux', 'store', 'po_number', 'shipment_number',
-                    'quantity', 'user', 'packaging')
-    search_fields = ('product',)
+class StoreOutletAdmin(StoreEntranceAdmin):
+    pass
 
 
 class ManagementByLotFilter(SimpleListFilter):
