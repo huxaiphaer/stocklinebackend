@@ -13,7 +13,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 class PackagingAdmin(admin.ModelAdmin):
     list_display = ('id', 'packaging_name',
-                    'packaging_type', 'quantity')
+                    'package_type', 'quantity')
 
 
 class TransportAdmin(admin.ModelAdmin):
