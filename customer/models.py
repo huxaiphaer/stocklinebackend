@@ -75,7 +75,7 @@ class Packaging(TimeStampedModel, models.Model):
                                  blank=True, null=True)
 
     def __str__(self):
-        return f'{self.packaging_name} {self.packaging_type} {self.quantity}'
+        return f'{self.packaging_name} {self.package_type} {self.quantity}'
 
 
 class Transport(TimeStampedModel, models.Model):
