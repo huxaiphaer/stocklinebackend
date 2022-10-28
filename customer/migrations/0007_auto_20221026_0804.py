@@ -5,10 +5,13 @@ from django.db import migrations
 
 def set_package_type(apps, schema_editor):
     MyModel = apps.get_model('customer', 'Packaging')
+    PackagingType = apps.get_model('customer', 'PackagingType')
+    packaging_type = PackagingType.objects.create(name="Bags")
+
     for row in MyModel.objects.all():
         if isinstance(row.packaging_type, str):
-            row.packaging_type = 1
-        row.save()
+            row.packaging_type = packaging_type
+            row.save()
 
 
 class Migration(migrations.Migration):
