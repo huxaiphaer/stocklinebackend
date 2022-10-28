@@ -4,14 +4,13 @@ from django.db import migrations
 
 
 def set_package_type(apps, schema_editor):
-    MyModel = apps.get_model('customer', 'Packaging')
+    Packaging = apps.get_model('customer', 'Packaging')
     PackagingType = apps.get_model('customer', 'PackagingType')
-    packaging_type = PackagingType.objects.create(name="Bags")
+    packaging_type = PackagingType.objects.create(package_type="Bags")
 
-    for row in MyModel.objects.all():
-        if isinstance(row.packaging_type, str):
-            row.packaging_type = packaging_type
-            row.save()
+    for row in Packaging.objects.all():
+        row.packaging_type = packaging_type
+        row.save()
 
 
 class Migration(migrations.Migration):
