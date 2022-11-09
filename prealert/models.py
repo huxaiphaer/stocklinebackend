@@ -339,7 +339,6 @@ class WareHouse(TimeStampedModel, models.Model):
     name = models.CharField(
         _('Ware House Name '), max_length=400, blank=True, null=True)
 
-
     def __str__(self):
         return self.name
 
