@@ -59,6 +59,7 @@ class PreAlertSerializer(CountryFieldMixin, serializers.ModelSerializer):
 class WeighBridgeSerializer(serializers.ModelSerializer):
     commodity = ProductSerializer(many=False, required=False)
 
+    # TODO: Add customer
     class Meta:
         model = WeighBridge
         fields = (
@@ -67,7 +68,7 @@ class WeighBridgeSerializer(serializers.ModelSerializer):
             'user', 'entry_date', 'exit_time', 'print_date', '_import',
             '_export', 'client_name_field', 'from_destination',
             'to_destination',
-            'first_weight', 'second_name', 'net_weight', 'management_type',)
+            'first_weight', 'second_weight', 'net_weight', 'management_type',)
 
 
 class GuaranteedGoodsSerializer(serializers.ModelSerializer):
