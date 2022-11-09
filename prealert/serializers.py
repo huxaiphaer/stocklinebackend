@@ -22,7 +22,7 @@ class PreAlertSerializer(CountryFieldMixin, serializers.ModelSerializer):
         model = PreAlert
         fields = (
             'id', 'uuid', 'customer', 'product', 'quantity', 'packaging',
-            'weight', 'user', 'priority', 'contract_number', 'from_or_origin',
+            'user', 'priority', 'contract_number', 'from_or_origin',
             'commentaries', 'type', 'notifications', 'status', )
 
     def create(self, validated_data):
