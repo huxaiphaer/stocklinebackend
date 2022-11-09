@@ -20,6 +20,8 @@ class PackagingSerializer(serializers.ModelSerializer):
 
     packaging_name = ProductSerializer(many=False, required=False)
 
+    # TODO: packaging_type
+
     class Meta:
         model = Packaging
-        fields = ('id', 'uuid', 'packaging_name', 'packaging_type', 'quantity',)
+        fields = ('id', 'uuid', 'packaging_name', 'quantity',)
