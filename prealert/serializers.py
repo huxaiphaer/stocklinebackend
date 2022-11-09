@@ -65,8 +65,9 @@ class WeighBridgeSerializer(serializers.ModelSerializer):
             'id', 'vehicle_number', 'transporter', 'vehicle_reg_num',
             'account_id', 'commodity', 'time', 'trailer_reg_num',
             'user', 'entry_date', 'exit_time', 'print_date', '_import',
-            '_export', 'client_name', 'from_destination', 'to_destination',
-            'first_weight', 'second_name', 'net_weight', 'status',)
+            '_export', 'client_name_field', 'from_destination',
+            'to_destination',
+            'first_weight', 'second_name', 'net_weight', 'management_type',)
 
 
 class GuaranteedGoodsSerializer(serializers.ModelSerializer):
